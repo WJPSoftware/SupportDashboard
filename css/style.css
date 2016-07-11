@@ -1,0 +1,24 @@
+td .dangerbox{
+}
+
+td .warningbox{
+
+}
+
+td .sucessbox{
+
+}
+
+.box{
+	height:200px;
+}
+
+.box h2{ 
+	text-align: center;
+	font-size: 80px;
+}
+
+.box h3{
+	text-align: center;
+	font-size: 25px;
+}

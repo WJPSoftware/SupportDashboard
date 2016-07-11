@@ -28,8 +28,6 @@
 
     	if($item->{'COMPLETED'} != "1"){
 
-    		//print_r($item);
-
     		$return = array_merge($return,array($item));
     	}
     }

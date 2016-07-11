@@ -5,61 +5,89 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
   </head>
   <body ng-controller="DashboardController">
     
-    <table>
+    <div class="row">
+      <div class="col-md-8">
 
-      <tr>
-        <td class=".col-md-8">
-
-      <p>{{incidents.length}} Open Incident/s</p>
-
-      <table class="table">
-      <tr> 
-        <th>ID</th>
-        <th>Title</th>
-        <th>Service</th>
-        <th>Assigned to</th>
-        <th>Created</th>
-        <th>Due Date</th>
-      </tr>
-      <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15">
-        <td>{{ x.reference_num}}</td>
-        <td ng-class={'danger':x.priority.description=="Urgent",'warning':x.priority.description=="V.Important",'success':x.priority.description=="Important"}>{{ x.title }}</td>
-        <td>{{ x.service.name}}</td>
-        <td>{{ x.assigned_user.full_name}}</td>
-        <td>{{x.created_at | date:'dd/MM/yyyy'}}</td>
-        <td>{{x.due_date | date:'dd/MM/yyyy'}}</td>
-      </tr>
-    </table>
-    <p>This list is only the top 15 Incidents</p>
-  </td>
-  <td class=".col-md-4">
-    <table>
-
-      <tr><td>
-        <h2>Tasks</h2>
+        <h1>Incidents</h1>
 
         <table class="table">
         <tr> 
-        <th>Title</th>
-        <th>Due Date</th>
-      </tr>
-      <tr ng-repeat="t in tasks | orderBy: 'due_date' | limitTo: 15">
-        <td>{{ t.Title}}</td>
-        <td>{{t.Due_Date | date:'dd/MM/yyyy'}}</td>
-      </tr>
-    </table>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Service</th>
+          <th>Assigned to</th>
+          <th>Created</th>
+          <th>Due Date</th>
+        </tr>
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15">
+          <td>{{ x.reference_num}}</td>
+          <td ng-class={'danger':x.priority.description=="Urgent",'warning':x.priority.description=="V.Important",'success':x.priority.description=="Important"}>{{ x.title }}</td>
+          <td>{{ x.service.name}}</td>
+          <td>{{ x.assigned_user.full_name}}</td>
+          <td>{{x.created_at | date:'dd/MM/yyyy'}}</td>
+          <td ng-class={'danger':>{{x.due_date | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+      <p>This list is only the top 15 Incidents</p>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-4 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning"}>
+          <h2>{{incidents.length}}</h2><h3>Incidents Open</h3>
+        </div>
+        <div class="col-md-4 box">
+          <h2>{{incidents.length}}</h2><h3>Contacts Open</h3></div>
+        <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks Open</h3></div>
 
-      </td></tr>
-      <tr><td>Versions</td></tr>
+      </div>
+      <div class="row">
+          
 
-    </table>
-  </td>
-</tr>
+            <h1>Tasks</h1>
 
-</table>
+            <table class="table">
+                <tr> 
+                <th>Title</th>
+                <th>Due Date</th>
+              </tr>
+              <tr ng-repeat="t in tasks | limitTo: 15" class="bg-warning">
+                <td>{{t.Title}}</td>
+                <td>{{t.DUE_DATE | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </table>
+
+
+          
+      </div>
+      
+      <!--
+        <td colspan="4">
+            <h1>Tasks</h1>
+
+            <table class="table">
+                <tr> 
+                <th>Title</th>
+                <th>Due Date</th>
+              </tr>
+              <tr ng-repeat="t in tasks | limitTo: 15" class="bg-warning">
+                <td>{{ t.Title}}</td>
+                <td>{{t.Due_Date | date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+        <tr>
+          <td><h1>Contacts</h1></td>
+        </tr>
+      </td>-->
+    </div>
+
+  </div>
 
     
   </body>
