@@ -1,28 +1,25 @@
 angular.module('dashboard', [])
 
-.controller('DashboardController', function($scope,$http){
+.controller('DashboardController', function($scope,$http,$interval){
 
-	$scope.reload = function() {
+	$scope.incidents = function() {
 		$http.get("/Data/incidents.php")
 		.then(function(response) {
 			$scope.incidents = response.data;
 			//console.log($scope.incidents);
 		})
-
-
-		$http.get("/Data/users.php")
-		.then(function(response) {
-			$scope.users = response.data;
-			console.log($scope.users);
-		})
 	};
 
+	$scope.tasks = function() {
+		$http.get("/Data/tasks.php")
+		.then(function(response) {
+			$scope.tasks = response.data;
+		})
+	}
 
-
-
-
-	$scope.reload();
-	//$interval($scope.reload, 5000);
+	$scope.incidents();
+	$scope.tasks();
+	$interval($scope.incidents, 60000);
 
 	//$scope.welcome = "James";
 
