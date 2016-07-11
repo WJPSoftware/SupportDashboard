@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="dashboard">
+  <head>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="App/app.js"></script>
+  </head>
+  <style type="text/css">
+    .alert{background: red;}
+  </style>
+  <body ng-controller="DashboardController">
+    <div>
+      
+      <p>{{incidents.length}} Open Incident/s</p>
+
+      <table>
+      <tr> 
+        <th>ID</th>
+        <th>Title</th>
+        <th>Priority</th>
+        <th>Service</th>
+        <th>Assigned to</th>
+        <th>Created<th>
+        <th>Due Date</th>
+
+      </tr>
+      <tr ng-repeat="x in incidents">
+        <td>{{ x.reference_num}}</td>
+        <td>{{ x.title }}</td>
+        <td ng-class={'alert':x.priority.description=="Important"}>{{ x.priority.description}}</td>
+        <td>{{ x.service.name}}</td>
+        <td>{{ x.assigned_user.full_name}}</td>
+        <td>{{x.created_at | date:'dd/MM/yyyy'}}</td>
+        <td>{{x.due_date | date:'dd/MM/yyyy'}}</td>
+      </tr>
+    </table>
+
+
+    </div>
+  </body>
+</html>
