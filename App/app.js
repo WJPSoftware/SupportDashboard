@@ -38,13 +38,65 @@ angular.module('dashboard', [])
 		})
 	}
 
-	$scope.incidents();
-	$scope.tasks();
+	$scope.load = function(){
+		$scope.incidents();
+		$scope.tasks();
+	}
+
+	//$scope.incidents();
+	//$scope.tasks();
+	$scope.load();
 	$interval($scope.incidents, 60000);
+	$interval($scope.tasks,60000);
 
 	//$scope.welcome = "James";
 
 
+	$scope.getdateclass = function(dateVal){
+
+		var dateObj = new Date(dateVal);
+
+		var today = new Date(Date.now());
+
+		var thisweek = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
+
+		if (dateObj <= today){
+			return 'danger';
+		} else if (dateObj <= thisweek) {
+			return 'warning';
+		}
+
+	}
+
+	$scope.getnewitem = function(dateVal){
+
+		var dateObj = new Date(dateVal);
+
+		var today = new Date(Date.now());
+
+		console.log(dateObj.toDateString() + " " + today.toDateString());
+
+		if(dateObj.toDateString() == today.toDateString()){
+			return 'bg-info';
+		}
+
+	}
+
+	$scope.formatDate = function(date){
+          var dateOut = new Date(date);
+          return dateOut;
+    };
+
+    $scope.getstatusclass = function(statusVal){
+
+    	switch (statusVal){
+    		case 'NOT STARTED':
+    			return 'danger';
+    		case 'IN PROGRESS':
+    			return 'success';
+    	}
+
+    }
 
 })
 

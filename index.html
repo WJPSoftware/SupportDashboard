@@ -4,6 +4,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
+    <script src="App/functions.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
   </head>
@@ -25,13 +26,13 @@
           <th>Created</th>
           <th>Due Date</th>
         </tr>
-        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15">
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15" ng-class="getnewitem(x.created_at)">
           <td>{{ x.reference_num}}</td>
-          <td ng-class={'danger':x.priority.description=="Urgent",'warning':x.priority.description=="V.Important",'success':x.priority.description=="Important"}>{{ x.title }}</td>
+          <td ng-class={'danger':x.priority.description=="Urgent",'warning':x.priority.description=="V.Important",'success':x.priority.description=="Important",'info':x.priority.description=="Inconvenient",'active':x.priority.description=="Cosmetics"}>{{ x.title }}</td>
           <td>{{ x.service.name}}</td>
           <td>{{ x.assigned_user.full_name}}</td>
           <td>{{x.created_at | date:'dd/MM/yyyy'}}</td>
-          <td ng-class={'danger':>{{x.due_date | date:'dd/MM/yyyy'}}</td>
+          <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
       </table>
       <p class="lead">This list is only the top 15 Incidents</p>
@@ -41,9 +42,10 @@
         <div class="col-md-4 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning"}>
           <h2>{{incidents.length}}</h2><h3>Incidents Open</h3>
         </div>
-        <div class="col-md-4 box">
-          <h2>{{incidents.length}}</h2><h3>Contacts Open</h3></div>
         <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks Open</h3></div>
+        <div class="col-md-4 box">
+          <h2>0</h2><h3>Contacts Open</h3></div>
+        
 
       </div>
       <div class="row">
@@ -55,10 +57,12 @@
                 <tr> 
                 <th>Title</th>
                 <th>Due Date</th>
+                <th>Status</th>
               </tr>
-              <tr ng-repeat="t in tasks | limitTo: 5" class="bg-warning">
+              <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 5">
                 <td>{{t.Title}}</td>
-                <td>{{t.DUE_DATE | date:'dd/MM/yyyy'}}</td>
+                <td ng-class="getdateclass(t.DUE_DATE)">{{formatDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
+                <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
             </table>
 
@@ -75,7 +79,7 @@
                 <th>Title</th>
                 <th>Due Date</th>
               </tr>
-              <tr ng-repeat="t in tasks | limitTo: 5" class="bg-warning">
+              <tr>
                 <td>{{t.Title}}</td>
                 <td>{{t.DUE_DATE | date:'dd/MM/yyyy'}}</td>
               </tr>
@@ -85,27 +89,7 @@
           
       </div>
       
-      <!--
-        <td colspan="4">
-            <h1>Tasks</h1>
-
-            <table class="table">
-                <tr> 
-                <th>Title</th>
-                <th>Due Date</th>
-              </tr>
-              <tr ng-repeat="t in tasks | limitTo: 15" class="bg-warning">
-                <td>{{ t.Title}}</td>
-                <td>{{t.Due_Date | date:'dd/MM/yyyy'}}</td>
-              </tr>
-            </table>
-
-          </td>
-        </tr>
-        <tr>
-          <td><h1>Contacts</h1></td>
-        </tr>
-      </td>-->
+     
     </div>
 
   </div>
