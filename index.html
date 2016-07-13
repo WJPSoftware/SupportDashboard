@@ -20,14 +20,16 @@
         <table class="table">
         <tr> 
           <th>ID</th>
+          <th>Priority</th>
           <th>Title</th>
           <th>Service</th>
           <th>Assigned to</th>
           <th>Created</th>
           <th>Due Date</th>
         </tr>
-        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15" ng-class="getnewitem(x.created_at)">
-          <td>{{ x.reference_num}}</td>
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15">
+          <td ng-class="getnewitem(x.created_at)">{{ x.reference_num}}</td>
+          <td><td><a class="btn btn-danger">{{x.priority.description}}</a></td>
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">{{ x.title }}</td>
           <td>{{ x.service.name}}</td>
           <td>{{ x.assigned_user.full_name}}</td>
@@ -79,9 +81,9 @@
                 <th>Title</th>
                 <th>Due Date</th>
               </tr>
-              <tr>
+              <tr ng-repeat="c in contacts  | orderBy: 'DUE_DATE' | limitTo: 5">
                 <td>{{t.Title}}</td>
-                <td>{{t.DUE_DATE | date:'dd/MM/yyyy'}}</td>
+                <td>{{t.Recieved | date:'dd/MM/yyyy'}}</td>
               </tr>
             </table>
 

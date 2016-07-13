@@ -38,9 +38,23 @@ angular.module('dashboard', [])
 		})
 	}
 
+	$scope.contacts = function(){
+		$http.get("/Data/contacts.php")
+		.then(function(response) {
+
+			console.log("Got Data");
+
+			$scope.contacts = response.data;
+
+			console.log($scope.contacts);
+
+		})
+	}
+
 	$scope.load = function(){
 		$scope.incidents();
 		$scope.tasks();
+		$scope.contacts();
 	}
 
 	//$scope.incidents();
@@ -74,7 +88,7 @@ angular.module('dashboard', [])
 
 		var today = new Date(Date.now());
 
-		console.log(dateObj.toDateString() + " " + today.toDateString());
+		//console.log(dateObj.toDateString() + " " + today.toDateString());
 
 		if(dateObj.toDateString() == today.toDateString()){
 			return 'bg-info';
