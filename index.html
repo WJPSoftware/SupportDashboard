@@ -46,7 +46,7 @@
         </div>
         <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks Open</h3></div>
         <div class="col-md-4 box">
-          <h2>0</h2><h3>Contacts Open</h3></div>
+          <h2>{{contacts.length}}</h2><h3>Contacts Open</h3></div>
         
 
       </div>
@@ -63,7 +63,7 @@
               </tr>
               <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 5">
                 <td>{{t.Title}}</td>
-                <td ng-class="getdateclass(t.DUE_DATE)">{{formatDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
+                <td ng-class="getdateclass(t.DUE_DATE)">{{convertToDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
             </table>
@@ -85,7 +85,7 @@
               <tr ng-repeat="c in contacts | limitTo: 2">
                 <td>{{c.Title}}</td>
                 <td>{{c.Name}}</td>
-                <td>{{formatDate(c.Recieved) | date:'dd/MM/yyyy'}}</td>
+                <td>{{convertToDate(c.Recieved) | date:'dd/MM/yyyy'}}</td>
               </tr>
             </table>
 

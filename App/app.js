@@ -26,15 +26,13 @@ angular.module('dashboard', [])
 		.then(function(response) {
 			$scope.tasks = response.data;
 
-			if($scope.tasks.length <= 10){
+			if($scope.tasks.length <= 5){
 				$scope.taskstatus = "success";
-			} else if (10 < $scope.tasks.length && $scope.tasks.length <= 20 ){
+			} else if (5 < $scope.tasks.length && $scope.tasks.length <= 10 ){
 				$scope.taskstatus = "warning";
 			} else {
 				$scope.taskstatus = "danger";
 			}
-
-			console.log($scope.tasks.length);
 		})
 	}
 
@@ -45,18 +43,24 @@ angular.module('dashboard', [])
 		$http.get("/Data/contacts.php")
 		.then(function(response) {
 
-			console.log("Got Data");
+			//console.log("Got Data");
 
 			$scope.contacts = response.data;
 
-			console.log($scope.contacts);
+			if($scope.contacts.length <= 5){
+				$scope.contactstatus = "success";
+			} else if (5 < $scope.contacts.length && $scope.contacts.length <= 10 ){
+				$scope.contactstatus = "warning";
+			} else {
+				$scope.contactsstatus = "danger";
+			}
 
 		})
 	}
 
 	$scope.load = function(){
-		//$scope.incidents();
-		//$scope.tasks();
+		$scope.incidents();
+		$scope.tasks();
 		$scope.contacts();
 	}
 
@@ -100,9 +104,19 @@ angular.module('dashboard', [])
 
 	}
 
-	$scope.formatDate = function(date){
-          var dateOut = new Date(date);
+	$scope.convertToDate = function(dateVal){
+		//console.log("Format Date");
+		dateVal = dateVal.replace(" ","T");
+		//console.log(dateVal);
+          var dateOut = new Date(dateVal);
+          console.log(dateOut);
           return dateOut;
+  //         $scope.convertToDate = function (dateVal){
+  // var dateOut = new Date(stringDate);
+  // dateOut.setDate(dateOut.getDate() + 1);
+  // console.log("Format Date");
+  // return dateOut;
+
     };
 
     $scope.getstatusclass = function(statusVal){
