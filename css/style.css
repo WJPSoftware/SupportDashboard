@@ -3,7 +3,13 @@ body{
 
 	color: #ecf0f1;
 
-	font-family: (URW Gothic L, sans-serif);
+	font-family: "FreeSans", sans-serif;
+
+	/*font-weight: bold;*/
+
+	font-size: 18px;
+
+	width: 99%;
 }
 
 td .dangerbox{
