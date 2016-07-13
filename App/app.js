@@ -39,6 +39,9 @@ angular.module('dashboard', [])
 	}
 
 	$scope.contacts = function(){
+
+		console.log("Get Data");
+
 		$http.get("/Data/contacts.php")
 		.then(function(response) {
 
@@ -52,16 +55,17 @@ angular.module('dashboard', [])
 	}
 
 	$scope.load = function(){
-		$scope.incidents();
-		$scope.tasks();
+		//$scope.incidents();
+		//$scope.tasks();
 		$scope.contacts();
 	}
 
-	//$scope.incidents();
-	//$scope.tasks();
+	$scope.incidents();
+	$scope.tasks();
 	$scope.load();
 	$interval($scope.incidents, 60000);
 	$interval($scope.tasks,60000);
+	$interval($scope.contacts,60000);
 
 	//$scope.welcome = "James";
 
@@ -91,7 +95,7 @@ angular.module('dashboard', [])
 		//console.log(dateObj.toDateString() + " " + today.toDateString());
 
 		if(dateObj.toDateString() == today.toDateString()){
-			return 'bg-info';
+			return 'bg-success';
 		}
 
 	}
