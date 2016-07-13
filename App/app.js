@@ -9,7 +9,7 @@ angular.module('dashboard', [])
 
 			if($scope.incidents.length <= 10){
 				$scope.incidentstatus = "success";
-			} else if (10 < $scope.incidents.length && $scope.incidents.length >= 20 ){
+			} else if (10 < $scope.incidents.length && $scope.incidents.length <= 20 ){
 				$scope.incidentstatus = "warning";
 			} else {
 				$scope.incidentstatus = "danger";
@@ -28,7 +28,7 @@ angular.module('dashboard', [])
 
 			if($scope.tasks.length <= 10){
 				$scope.taskstatus = "success";
-			} else if (10 < $scope.tasks.length && $scope.tasks.length >= 20 ){
+			} else if (10 < $scope.tasks.length && $scope.tasks.length <= 20 ){
 				$scope.taskstatus = "warning";
 			} else {
 				$scope.taskstatus = "danger";
