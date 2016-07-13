@@ -1,6 +1,9 @@
 body{
 	background: #333;
+
 	color: #ecf0f1;
+
+	font-family: (URW Gothic L, sans-serif);
 }
 
 td .dangerbox{
@@ -14,19 +17,19 @@ td .sucessbox{
 
 }
 
-.danger{
+.danger, .bg-danger{
 	background: #d94f4f !important;
 }
 
-.warning{
+.warning, .bg-warning{
 	background: #f59a18 !important;
 }
 
-.success{
+.success, .bg-success{
 	background: #0bb30b !important;
 }
 
-.info{
+.info, .bg-info{
 	background: #1dc1f2 !important;
 }
 
