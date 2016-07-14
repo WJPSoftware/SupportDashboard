@@ -47,9 +47,9 @@ angular.module('dashboard', [])
 
 			$scope.contacts = response.data;
 
-			if($scope.contacts.length <= 5){
+			if($scope.contacts.length <= 3){
 				$scope.contactstatus = "success";
-			} else if (5 < $scope.contacts.length && $scope.contacts.length <= 10 ){
+			} else if (3 < $scope.contacts.length && $scope.contacts.length <= 5 ){
 				$scope.contactstatus = "warning";
 			} else {
 				$scope.contactsstatus = "danger";

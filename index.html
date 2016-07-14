@@ -45,7 +45,7 @@
           <h2>{{incidents.length}}</h2><h3>Incidents Open</h3>
         </div>
         <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks<br/>Open</h3></div>
-        <div class="col-md-4 box">
+        <div class="col-md-4 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
           <h2>{{contacts.length}}</h2><h3>Contacts Open</h3></div>
         
 
@@ -80,11 +80,13 @@
                 <tr> 
                 <th>Title</th>
                 <th>From</th>
+                <th>Type</th>
                 <th>Date Recieved</th>
               </tr>
-              <tr ng-repeat="c in contacts | limitTo: 2">
+              <tr ng-repeat="c in contacts | limitTo: 3">
                 <td>{{c.Title}}</td>
                 <td>{{c.Name}}</td>
+                <td>{{c.ContactType}}</td>
                 <td>{{convertToDate(c.Recieved) | date:'dd/MM/yyyy'}}</td>
               </tr>
             </table>
