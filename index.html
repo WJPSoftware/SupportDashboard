@@ -42,11 +42,11 @@
     <div class="col-md-4">
       <div class="row">
         <div class="col-md-4 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning"}>
-          <h2>{{incidents.length}}</h2><h3>Incidents Open</h3>
+          <h2>{{incidents.length}}</h2><h3>Incidents<br/>Open</h3>
         </div>
         <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks<br/>Open</h3></div>
         <div class="col-md-4 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
-          <h2>{{contacts.length}}</h2><h3>Contacts Open</h3></div>
+          <h2>{{contacts.length}}</h2><h3>Contacts<br/>Open</h3></div>
         
 
       </div>
@@ -99,6 +99,12 @@
     </div>
 
   </div>
+
+  <footer>
+    <div id='foot'>
+      <span>Last Updated: {{footerdate | date: 'EEEE d MMMM y hh:mm'}}</span><span style='right: 15%; position: absolute;'>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span>
+    </div>
+  </footer>
 
     
   </body>

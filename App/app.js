@@ -58,6 +58,11 @@ angular.module('dashboard', [])
 		})
 	}
 
+	$scope.footerdate = function(){
+		$scope.footerdate = new Date(Date.now());
+	}
+
+
 	$scope.load = function(){
 		$scope.incidents();
 		$scope.tasks();
@@ -67,9 +72,13 @@ angular.module('dashboard', [])
 	$scope.incidents();
 	$scope.tasks();
 	$scope.load();
+	
 	$interval($scope.incidents, 60000);
 	$interval($scope.tasks,60000);
 	$interval($scope.contacts,60000);
+	$interval($scope.footerdate, 60000);
+
+
 
 	//$scope.welcome = "James";
 
@@ -109,7 +118,7 @@ angular.module('dashboard', [])
 		dateVal = dateVal.replace(" ","T");
 		//console.log(dateVal);
           var dateOut = new Date(dateVal);
-          console.log(dateOut);
+          // console.log(dateOut);
           return dateOut;
   //         $scope.convertToDate = function (dateVal){
   // var dateOut = new Date(stringDate);
