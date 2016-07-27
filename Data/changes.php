@@ -14,12 +14,13 @@
 		$OutputArray = array();
 
 		//Users
-		$Users[0] = "868813227640179608"; //JP
-		$Users[1] = "1098036882208989260"; //SL
-		$Users[2] = "1054659565007053193"; //JL
-		$Users[3] = "1132889807467380974"; //SQCL
-		$Users[4] = "1100769933341483309"; //WJPS
-		$Users[5] = "1132948781569351846"; //SQCLGrou
+		$Users[0] = ""; //JP
+		//$Users[1] = "1098036882208989260"; //SL
+		//$Users[2] = "1054659565007053193"; //JL
+		//$Users[3] = "1132889807467380974"; //SQCL
+		//$Users[4] = "1100769933341483309"; //WJPS
+		//$Users[5] = "1132948781569351846"; //SQCLGrou
+
 
 		foreach ($Users as $User) {
 			# code...
@@ -27,7 +28,7 @@
 
 			$ch = curl_init();
  
-			curl_setopt($ch,CURLOPT_URL,"https://deskapi.gotoassist.com/v1/incidents.json?limit=99&selected_user_id=" . $User);
+			curl_setopt($ch,CURLOPT_URL,"https://deskapi.gotoassist.com/v1/changes.json?limit=99&selected_user_id=" . $User);
 		    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
 			$headr = array();
@@ -44,14 +45,14 @@
 		 
 		    curl_close($ch);
 
-		    //print_r($output);
+		    //print_r($output . "<br/><br/><br/>");
 
 		    $obj = json_decode($output);
 
 		    if(sizeof($OutputArray) == 0){
-		    	$OutputArray = $obj->{'result'}->{'incidents'};
+		    	$OutputArray = $obj->{'result'}->{'changes'};
 		    } else {
-			    $OutputArray = array_merge($OutputArray,$obj->{'result'}->{'incidents'});
+			    $OutputArray = array_merge($OutputArray,$obj->{'result'}->{'changes'});
 			}
 
 
@@ -63,5 +64,11 @@
 		print_r(json_encode($OutputArray));
 
 	   }
+
+   
+
+
+
+
 
 ?>
