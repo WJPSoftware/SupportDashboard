@@ -23,6 +23,8 @@
 
     $list = json_decode($output);
 
+    if($list != null){
+
     foreach ($list as $item) {
     	//print_r($item);
 
@@ -34,6 +36,11 @@
     
     print_r(json_encode($return));
 
+    }else{
+
+        print("null");
+        
+    }
 
 
 ?>

@@ -2,6 +2,7 @@
 <html ng-app="dashboard">
   <head>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/status.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
     <script src="App/functions.js"></script>
@@ -11,15 +12,15 @@
   <body ng-controller="DashboardController">
     
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-7">
 
-        <h1 style="margin-left:15px;"><img style="height:75px;" src="img/wjps-logo.png"/></h1>
+       <!--  <h1 style="margin-left:15px;"><img style="height:75px;" src="img/wjps-logo.png"/></h1> -->
 
-        <h1 style="margin-left:15px;"><small>Top 15 Incidents</small></h1>
+        <h1 style="margin-left:15px; margin-top:0px;"><small>Top 8 Incidents</small></h1>
 
         <table class="table">
         <tr> 
-          <th>&nbsp;</th>
+          <th style='text-align:center;'><span class="glyphicon glyphicon-warning-sign"></span></th>
           <th>ID</th>
           <th>Title</th>
           <th>Service</th>
@@ -27,25 +28,53 @@
           <th>Created</th>
           <th>Due Date</th>
         </tr>
-        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 15">
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 8">
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
           <td>{{ x.reference_num}}</td>
-          <td>{{ x.title }}</td>
-          <td>{{ x.service.name}}</td>
-          <td>{{ x.assigned_user.full_name}}</td>
+          <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
+          <td>{{ getservicename(x.service.name)}}</td>
+          <td>{{ getassigneename(x.assigned_user.full_name)}}</td>
           <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
       </table>
+
+      <h1 style="margin-left:15px; margin-top:-25px;"><small>Top 8 Changes</small></h1>
+
+       <table class="table">
+        <tr> 
+          <th style='text-align:center;'><span class='glyphicon glyphicon-random'></span></th>
+          <th style='text-align:center;'><span class='glyphicon glyphicon-flash'></span></th>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Service</th>
+          <th>Assigned to</th>
+          <th>Due Date</th>
+          <th>Est. Hours</th>
+        </tr>
+        <tr ng-repeat="y in changes | orderBy: 'due_date' | limitTo: 8">
+          <td ng-class="{'danger':y.complexity=='High','warning':y.complexity=='Medium','success':y.complexity=='Low'}">&nbsp;</td>
+          <td ng-class="{'danger':y.risk=='High','warning':y.risk=='Medium','success':y.risk=='Low'}">&nbsp;</td>
+          <td>{{ y.id}}</td>
+          <td>{{ y.title | limitTo: 30 }}{{y.title.length > 30 ? '...' : ''}}</td>
+          <td>{{ getservicename(y.service.name)}}</td>
+          <td>{{ getassigneename(y.assigned_user.full_name)}}</td>          
+          <td ng-class="getdateclass(y.due_live_at)">{{(y.due_live_at | date:'dd/MM/yyyy') || 'No Date'}}</td>
+          <td>{{ y.estimated_hours}}</td>          
+        </tr>
+      </table>
       <!-- <p class="lead">This list is only the top 15 Incidents</p> -->
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <div class="row">
-        <div class="col-md-4 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning",'bg-success':incidentstatus=="success"}>
+        <div class="col-md-3 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning",'bg-success':incidentstatus=="success"}>
           <h2>{{incidents.length}}</h2><h3>Incidents<br/>Open</h3>
         </div>
-        <div class="col-md-4 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks<br/>Open</h3></div>
-        <div class="col-md-4 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
+        <div class="col-md-3 box" ng-class={'bg-danger':changesstatus=="danger",'bg-warning':changesstatus=="warning",'bg-success':changesstatus=="success"}>
+          <h2>{{changes.length}}</h2><h3>Changes<br/>Open</h3>
+        </div>
+        <div class="col-md-3 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks<br/>Open</h3></div>
+        <div class="col-md-3 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
           <h2>{{contacts.length}}</h2><h3>Contacts<br/>Open</h3></div>
         
 
@@ -53,7 +82,7 @@
       <div class="row">
           
 
-            <h1><small>Top 5 Tasks</small></h1>
+            <h1 style="margin-top:0px;"><small>Top 8 Tasks</small></h1>
 
             <table class="table">
                 <tr> 
@@ -61,7 +90,7 @@
                 <th>Due Date</th>
                 <th>Status</th>
               </tr>
-              <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 5">
+              <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 8">
                 <td>{{t.Title}}</td>
                 <td ng-class="getdateclass(t.DUE_DATE)">{{convertToDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
@@ -71,30 +100,24 @@
             <!-- <p class="lead">This list is only the top 5 Outstanding Tasks</p> -->
           
       </div>
-      <div class="row">
-          
 
-            <h1><small>Recent Contacts</small></h1>
+
+      <div class="row" style="right:0; bottom:35px; position:fixed; width: 11%;">          
+
+            <h1 style="margin-top:-25px;"><small>Server Status</small></h1>
 
             <table class="table">
-                <tr> 
-                <th>Title</th>
-                <th>From</th>
-                <th>Type</th>
-                <th>Date Recieved</th>
-              </tr>
-              <tr ng-repeat="c in contacts | limitTo: 3">
-                <td>{{c.Title}}</td>
-                <td>{{c.Name}}</td>
-                <td>{{c.ContactType}}</td>
-                <td>{{convertToDate(c.Recieved) | date:'dd/MM/yyyy'}}</td>
+           
+              <tr ng-repeat="s in serverstatus | limitTo: 3000">
+                <td>{{s.Label}}</td>
+                <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
               </tr>
             </table>
 
             <!-- <p class="lead">This list is only the top 5 Outstanding Contacts</p> -->
           
       </div>
-      
+     
      
     </div>
 
@@ -102,7 +125,7 @@
 
   <footer>
     <div id='foot'>
-      <span>Last Updated: {{footerdate | date: 'EEEE d MMMM y HH:mm'}}</span><span style='right: 15%; position: absolute;'>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span>
+      <span>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span><span style='right: 5%; position: absolute;'>Last Updated: {{footerdate | date: 'EEEE d MMMM y HH:mm'}} <span class='error glyphicon {{connectionerror}}'> </span></span>
     </div>
   </footer>
 
