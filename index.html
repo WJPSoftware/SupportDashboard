@@ -20,13 +20,13 @@
 
         <table class="table">
         <tr> 
-          <th style='text-align:center;'><span class="glyphicon glyphicon-warning-sign"></span></th>
-          <th>ID</th>
+          <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
+          <th style="width:7%">ID</th>
           <th>Title</th>
-          <th>Service</th>
-          <th>Assigned to</th>
-          <th>Created</th>
-          <th>Due Date</th>
+          <th style="width:12%">Service</th>
+          <th style="width:12%">Assigned</th>
+          <th style="width:12%">Created</th>
+          <th style="width:12%">Due Date</th>
         </tr>
         <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 8">
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
@@ -43,16 +43,16 @@
 
        <table class="table">
         <tr> 
-          <th style='text-align:center;'><span class='glyphicon glyphicon-random'></span></th>
-          <th style='text-align:center;'><span class='glyphicon glyphicon-flash'></span></th>
-          <th>ID</th>
+          <th style='text-align:center;width:20px'><span class='glyphicon glyphicon-random'></span></th>
+          <th style='text-align:center;width:20px'><span class='glyphicon glyphicon-flash'></span></th>
+          <th style="width:7%">ID</th>
           <th>Title</th>
-          <th>Service</th>
-          <th>Assigned to</th>
-          <th>Due Date</th>
-          <th>Est. Hours</th>
+          <th style="width:12%">Service</th>
+          <th style="width:12%">Assigned</th>
+          <th style="width:12%">Due Date</th>
+          <th style="width:12%">Est. Hours</th>
         </tr>
-        <tr ng-repeat="y in changes | orderBy: 'due_date' | limitTo: 8">
+        <tr ng-repeat="y in changes | orderBy: 'due_live_at' | limitTo: 8">
           <td ng-class="{'danger':y.complexity=='High','warning':y.complexity=='Medium','success':y.complexity=='Low'}">&nbsp;</td>
           <td ng-class="{'danger':y.risk=='High','warning':y.risk=='Medium','success':y.risk=='Low'}">&nbsp;</td>
           <td>{{ y.id}}</td>
