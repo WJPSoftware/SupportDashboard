@@ -1,7 +1,18 @@
+/* *********************************************** */
+/* Support Dashboard App.js                        */
+/* Original Developer: WJP Software Limited        */
+/* http://www.wjps.co.uk                           */
+/* Open Source Code - Please modify for your       */
+/* requirements and needs.                         */
+/* *********************************************** */
+
+
 angular.module('dashboard', [])
 
 .controller('DashboardController', function($scope,$http,$interval){
 
+
+/* connects to and fulls in data from /Data/incidents.php */
 	$scope.incidents = function() {
 		$http.get("/Data/incidents.php")
 		.then(function(response) {	
@@ -27,13 +38,10 @@ angular.module('dashboard', [])
 				$scope.connectionerror = "glyphicon-ban-circle"
 
 			}
-
-			//console.log(sizeof($scope.incidents));
-
-			//console.log($scope.incidents);
 		})
 	};
 
+/* connects to and fulls in data from /Data/tasks.php */
 	$scope.tasks = function() {
 		$http.get("/Data/tasks.php")
 		.then(function(response) {
@@ -60,20 +68,13 @@ angular.module('dashboard', [])
 		})
 	}
 
+/* connects to and fulls in data from /Data/contacts.php */
 	$scope.contacts = function(){
-
-		//console.log("Get Data");
-
 		$http.get("/Data/contacts.php")
 		.then(function(response) {
 
 			if(response.data != ""){
-
-				//console.log("Got Data");
-
 				$scope.contacts = response.data;
-
-				//alert($scope.contacts.length);
 
 				if($scope.contacts.length <= 3){
 					$scope.contactstatus = "success";
@@ -96,6 +97,7 @@ angular.module('dashboard', [])
 		})
 	}
 
+/* connects to and fulls in data from /Data/status.php */
 	$scope.serverstatus = function(){
 
 		$http.get("/Data/status.php")
@@ -107,6 +109,7 @@ angular.module('dashboard', [])
 
 	}
 
+/* connects to and fulls in data from /Data/changes.php */
 	$scope.changes = function(){
 
 		$http.get("/Data/changes.php")
@@ -133,37 +136,22 @@ angular.module('dashboard', [])
 			}
 
 		})
-
-		//console.log("Loaded");
-
 	}
 
-
-
-
-	$scope.load = function(){
-		$scope.incidents();
-		$scope.tasks();
-		$scope.contacts();
-		$scope.changes();
-		$scope.serverstatus();
-	}
-
-	// $scope.incidents();
-	// $scope.tasks();
-	$scope.load();
+/* Load page */
+	$scope.incidents();
+	$scope.tasks();
+	$scope.contacts();
+	$scope.changes();
+	$scope.serverstatus();
 	
 	$interval($scope.incidents, 60000);
 	$interval($scope.tasks,60000);
 	$interval($scope.contacts,60000);
 	$interval($scope.changes, 60000);
 	$interval($scope.serverstatus, 60000);
-	
 
-
-	//$scope.welcome = "James";
-
-
+/* Sets date css */
 	$scope.getdateclass = function(dateVal){
 
 		var dateObj = new Date(dateVal);
@@ -180,13 +168,12 @@ angular.module('dashboard', [])
 
 	}
 
+/* Set today css - new item in system */
 	$scope.getnewitem = function(dateVal){
 
 		var dateObj = new Date(dateVal);
 
 		var today = new Date(Date.now());
-
-		//console.log(dateObj.toDateString() + " " + today.toDateString());
 
 		if(dateObj.toDateString() == today.toDateString()){
 			return 'bg-success';
@@ -194,6 +181,7 @@ angular.module('dashboard', [])
 
 	}
 
+/* Converts Date and adds T to make it useable. */
 	$scope.convertToDate = function(dateVal){
 		//console.log("Format Date");
 		dateVal = dateVal.replace(" ","T");
@@ -201,16 +189,10 @@ angular.module('dashboard', [])
           var dateOut = new Date(dateVal);
           // console.log(dateOut);
           return dateOut;
-  //         $scope.convertToDate = function (dateVal){
-  // var dateOut = new Date(stringDate);
-  // dateOut.setDate(dateOut.getDate() + 1);
-  // console.log("Format Date");
-  // return dateOut;
-
     };
 
+/* Task Status Styling */
     $scope.getstatusclass = function(statusVal){
-
     	switch (statusVal){
     		case 'NOT STARTED':
     			return 'danger';
@@ -220,10 +202,10 @@ angular.module('dashboard', [])
 
     }
 
+/* Short Service Names to save space on table*/
     $scope.getservicename = function(service){
 
     	switch (service){
-
     		case 'Microbiological Reporting System':
     		return "MRS";
     		case 'MRS Additional Features':
@@ -242,11 +224,11 @@ angular.module('dashboard', [])
     		return "MRS WR";
     		default:
     		return service;
-
     	}
 
     }
 
+/* Short Assigned Names to save space on table*/
     $scope.getassigneename = function(assignee){
 
     	switch (assignee){

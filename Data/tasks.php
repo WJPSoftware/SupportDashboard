@@ -1,20 +1,32 @@
 <?php
 
+// *********************************************** //
+// Support Dashboard Tasks from Insightly          //
+// Original Developer: WJP Software Limited        //
+// http://www.wjps.co.uk                           //
+// Open Source Code - Please modify for your       //
+// requirements and needs.                         //
+// *********************************************** //
+
 	$ch = curl_init();
  
+    // ************************************************************* //
+    // Get tasks from Insightly                                      //
+    // ************************************************************* //
 	curl_setopt($ch,CURLOPT_URL,"https://api.insight.ly/v2.1/Tasks");
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
 	$headr = array();
-	//$headr[] = '-u x:b0a377a7a77dce64e593a95385eb3374 -H';
+
 	$headr[] = 'Content-type: application/json';
 
+    // ************************************************************* //
+    // API Password                                                  //
+    // ************************************************************* //
 	curl_setopt($ch, CURLOPT_USERPWD, "37a8cd68-0465-4180-b82a-96f86d5fee52:");
 
 	curl_setopt($ch, CURLOPT_HTTPHEADER,$headr);
 
-//  curl_setopt($ch,CURLOPT_HEADER, false); 
- 
     $output=curl_exec($ch);
  
     curl_close($ch);
@@ -26,7 +38,6 @@
     if($list != null){
 
     foreach ($list as $item) {
-    	//print_r($item);
 
     	if($item->{'COMPLETED'} != "1"){
 

@@ -1,19 +1,23 @@
 <?php
 
+// *********************************************** //
+// Support Dashboard Incidents from Citrix           //
+// Original Developer: WJP Software Limited        //
+// http://www.wjps.co.uk                           //
+// Open Source Code - Please modify for your       //
+// requirements and needs.                         //
+// *********************************************** //
+
 	output();
 
 	function output(){
 
 	
-		//Users
-
-		//$Users = json_decode(users());
-
-		//print_r($Users);
-
 		$OutputArray = array();
 
-		//Users
+		// ************************************************************* //
+		// Pass all Citrix Users and Groups ID's                         //
+		// ************************************************************* //
 		$Users[0] = "868813227640179608"; //JP
 		$Users[1] = "1098036882208989260"; //SL
 		$Users[2] = "1054659565007053193"; //JL
@@ -22,42 +26,43 @@
 		$Users[5] = "1132948781569351846"; //SQCLGrou
 
 		foreach ($Users as $User) {
-			# code...
-			//print($User->{'id'});
+			
+			($User->{'id'});
 
 			$ch = curl_init();
  
+ 			// ************************************************************* //
+			// Gets all incidents for the current user - See API Manual      //
+			// ************************************************************* //
 			curl_setopt($ch,CURLOPT_URL,"https://deskapi.gotoassist.com/v1/incidents.json?limit=99&selected_user_id=" . $User);
 		    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
 			$headr = array();
-			//$headr[] = '-u x:b0a377a7a77dce64e593a95385eb3374 -H';
+
 			$headr[] = 'Content-type: application/json';
 
+			// ************************************************************* //
+			// Your API Password always in the format x:password             //
+			// ************************************************************* //
 			curl_setopt($ch, CURLOPT_USERPWD, "x:b0a377a7a77dce64e593a95385eb3374");
 
 			curl_setopt($ch, CURLOPT_HTTPHEADER,$headr);
 
-		//  curl_setopt($ch,CURLOPT_HEADER, false); 
-		 
 		    $output=curl_exec($ch);
 		 
 		    curl_close($ch);
 
-		    //print_r($output);
-
 		    $obj = json_decode($output);
 
+		    // ************************************************************* //
+			// Merge each users Incident                                     //
+			// ************************************************************* //
 		    if(sizeof($OutputArray) == 0){
 		    	$OutputArray = $obj->{'result'}->{'incidents'};
 		    } else {
 			    $OutputArray = array_merge($OutputArray,$obj->{'result'}->{'incidents'});
 			}
 
-
-			//print(sizeof($OutputArray));
-		    //print_r(json_encode($obj->{'result'}->{'incidents'}));
-    
 		}
 
 		print_r(json_encode($OutputArray));

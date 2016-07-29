@@ -1,3 +1,12 @@
+<!-- *********************************************** -->
+<!-- Support Dashboard Index                         -->
+<!-- Original Developer: WJP Software Limited        -->
+<!-- http://www.wjps.co.uk                           -->
+<!-- Open Source Code - Please modify for your       -->
+<!-- requirements and needs.                         -->
+<!-- *********************************************** -->
+
+
 <!doctype html>
 <html ng-app="dashboard">
   <head>
@@ -14,10 +23,9 @@
     <div class="row">
       <div class="col-md-7">
 
-       <!--  <h1 style="margin-left:15px;"><img style="height:75px;" src="img/wjps-logo.png"/></h1> -->
+        <!--Incidents -->
 
         <h1 style="margin-left:15px; margin-top:0px;"><small>Top 8 Incidents</small></h1>
-
         <table class="table">
         <tr> 
           <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
@@ -38,6 +46,8 @@
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
       </table>
+
+      <!--Incidents -->
 
       <h1 style="margin-left:15px; margin-top:-25px;"><small>Top 8 Changes</small></h1>
 
@@ -63,10 +73,12 @@
           <td>{{ y.estimated_hours}}</td>          
         </tr>
       </table>
-      <!-- <p class="lead">This list is only the top 15 Incidents</p> -->
     </div>
     <div class="col-md-5">
       <div class="row">
+
+      <!--Status Boxes -->
+
         <div class="col-md-3 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning",'bg-success':incidentstatus=="success"}>
           <h2>{{incidents.length}}</h2><h3>Incidents<br/>Open</h3>
         </div>
@@ -81,6 +93,7 @@
       </div>
       <div class="row">
           
+          <!--Tasks from Insightly -->
 
             <h1 style="margin-top:0px;"><small>Top 8 Tasks</small></h1>
 
@@ -96,13 +109,12 @@
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
             </table>
-
-            <!-- <p class="lead">This list is only the top 5 Outstanding Tasks</p> -->
-          
       </div>
 
 
-      <div class="row" style="right:0; bottom:35px; position:fixed; width: 11%;">          
+      <div class="row" style="right:0; bottom:35px; position:fixed; width: 11%;">  
+
+            <!--Server Status In-House -->        
 
             <h1 style="margin-top:-25px;"><small>Server Status</small></h1>
 
@@ -114,14 +126,14 @@
               </tr>
             </table>
 
-            <!-- <p class="lead">This list is only the top 5 Outstanding Contacts</p> -->
-          
       </div>
      
      
     </div>
 
   </div>
+
+  <!--Footer -->
 
   <footer>
     <div id='foot'>
