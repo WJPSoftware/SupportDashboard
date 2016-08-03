@@ -33,6 +33,14 @@ angular.module('dashboard', [])
 
 				$scope.connectionerror = "";
 
+				if($scope.incidents.length < 8){
+					$scope.changelimit = 16 - $scope.incidents.length;
+					$scope.incidentlimit = $scope.incidents.length;
+				} else {
+					$scope.changelimit = 8;
+					$scope.incidentlimit = 8;
+				}
+
 			}else{
 
 				$scope.connectionerror = "glyphicon-ban-circle"

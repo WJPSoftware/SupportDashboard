@@ -8,6 +8,8 @@
 // requirements and needs.                         //
 // *********************************************** //
 
+	//echo("Hello");
+
 	output();
 
 	function output(){
@@ -25,9 +27,13 @@
 		$Users[4] = "1100769933341483309"; //WJPS
 		$Users[5] = "1132948781569351846"; //SQCLGrou
 
+		//echo("Load");
+
 		foreach ($Users as $User) {
 			
-			($User->{'id'});
+			//($User->{'id'});
+
+			//echo("Help");
 
 			$ch = curl_init();
  

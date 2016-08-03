@@ -25,7 +25,7 @@
 
         <!--Incidents -->
 
-        <h1 style="margin-left:15px; margin-top:0px;"><small>Top 8 Incidents</small></h1>
+        <h1 style="margin-left:15px; margin-top:0px;"><small><span ng-if="incidentlimit >= 8">Top 8</span>Incidents</small></h1>
         <table class="table">
         <tr> 
           <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
@@ -36,7 +36,7 @@
           <th style="width:12%">Created</th>
           <th style="width:12%">Due Date</th>
         </tr>
-        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: 8">
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: incidentlimit">
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
           <td>{{ x.reference_num}}</td>
           <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
@@ -49,7 +49,7 @@
 
       <!--Incidents -->
 
-      <h1 style="margin-left:15px; margin-top:-25px;"><small>Top 8 Changes</small></h1>
+      <h1 style="margin-left:15px; margin-top:-25px;"><small>Top {{changelimit}} Changes</small></h1>
 
        <table class="table">
         <tr> 
@@ -62,7 +62,7 @@
           <th style="width:12%">Due Date</th>
           <th style="width:12%">Est. Hours</th>
         </tr>
-        <tr ng-repeat="y in changes | orderBy: 'due_live_at' | limitTo: 8">
+        <tr ng-repeat="y in changes | orderBy: 'due_live_at' | limitTo: changelimit">
           <td ng-class="{'danger':y.complexity=='High','warning':y.complexity=='Medium','success':y.complexity=='Low'}">&nbsp;</td>
           <td ng-class="{'danger':y.risk=='High','warning':y.risk=='Medium','success':y.risk=='Low'}">&nbsp;</td>
           <td>{{ y.id}}</td>
