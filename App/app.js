@@ -12,7 +12,7 @@ angular.module('dashboard', [])
 .controller('DashboardController', function($scope,$http,$interval){
 
 
-/* connects to and fulls in data from /Data/incidents.php */
+/* connects to and fills in data from /Data/incidents.php */
 	$scope.incidents = function() {
 		$http.get("/Data/incidents.php")
 		.then(function(response) {	
@@ -49,7 +49,7 @@ angular.module('dashboard', [])
 		})
 	};
 
-/* connects to and fulls in data from /Data/tasks.php */
+/* connects to and fills in data from /Data/tasks.php */
 	$scope.tasks = function() {
 		$http.get("/Data/tasks.php")
 		.then(function(response) {
@@ -76,7 +76,7 @@ angular.module('dashboard', [])
 		})
 	}
 
-/* connects to and fulls in data from /Data/contacts.php */
+/* connects to and fills in data from /Data/contacts.php */
 	$scope.contacts = function(){
 		$http.get("/Data/contacts.php")
 		.then(function(response) {
@@ -105,7 +105,7 @@ angular.module('dashboard', [])
 		})
 	}
 
-/* connects to and fulls in data from /Data/status.php */
+/* connects to and fills in data from /Data/status.php */
 	$scope.serverstatus = function(){
 
 		$http.get("/Data/status.php")
@@ -117,7 +117,7 @@ angular.module('dashboard', [])
 
 	}
 
-/* connects to and fulls in data from /Data/changes.php */
+/* connects to and fills in data from /Data/changes.php */
 	$scope.changes = function(){
 
 		$http.get("/Data/changes.php")
