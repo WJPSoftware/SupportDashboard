@@ -113,6 +113,24 @@ angular.module('dashboard', [])
 
 			$scope.serverstatus = response.data;
 
+			var i = 0;
+
+			$scope.serverstatus.forEach(function(statusresponse){
+				if(statusresponse.Status == "FALSE"){
+					i++;
+				}
+				return;
+			});
+
+			if(i == 0){
+				$scope.allserverstatus = "success";
+			}else{
+				$scope.allserverstatus = "danger";
+			}
+		
+		
+			
+
 		})
 
 	}

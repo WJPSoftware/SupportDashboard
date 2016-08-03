@@ -110,7 +110,7 @@ footer{
 .status-good{
 	width: 15px;
 	height: 15px;
-	background: #0bb30b;
+	background: #33cc33;
 	-moz-border-radius: 7.5px;
 	-webkit-border-radius: 7.5px;
 	border-radius: 7.5px;
@@ -120,9 +120,12 @@ footer{
 .status-bad{
 	width: 15px;
 	height: 15px;
-	background: #d94f4f;
+	background: #ff3300;
 	-moz-border-radius: 7.5px;
 	-webkit-border-radius: 7.5px;
 	border-radius: 7.5px;
 	margin-top: 7px;
+}
+.box{
+	height: 200px;
 }
