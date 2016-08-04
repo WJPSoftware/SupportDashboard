@@ -47,7 +47,7 @@
         </tr>
       </table>
 
-      <!--Incidents -->
+      <!--Changes -->
 
       <h1 style="margin-left:15px; margin-top:-25px;"><small>Top {{changelimit}} Changes</small></h1>
 
@@ -85,7 +85,6 @@
         <div class="col-md-3 box" ng-class={'bg-danger':changesstatus=="danger",'bg-warning':changesstatus=="warning",'bg-success':changesstatus=="success"}>
           <h2>{{changes.length}}</h2><h3>Changes<br/>Open</h3>
         </div>
-        <!-- <div class="col-md-3 box" ng-class={'bg-danger':taskstatus=="danger",'bg-warning':taskstatus=="warning",'bg-success':taskstatus=="success"}><h2>{{tasks.length}}</h2><h3>Tasks<br/>Open</h3></div> -->
         <div class="col-md-3 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
           <h2>{{contacts.length}}</h2><h3>Contacts<br/>Open</h3></div>
         <div class="col-md-3 box" ng-class={'bg-danger':allserverstatus=="danger",'bg-success':allserverstatus=="success"}>
@@ -122,15 +121,7 @@
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
             </table>
-      </div>
-
-
-  <!--     <div class="row" style="right:0; bottom:35px; position:fixed; width: 11%;">  
-
-           
-
-      </div> -->
-     
+      </div>     
      
     </div>
 
