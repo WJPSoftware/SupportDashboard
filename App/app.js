@@ -41,9 +41,11 @@ angular.module('dashboard', [])
 					$scope.incidentlimit = 8;
 				}
 
+				$scope.changescounter = 0;
+
 			}else{
 
-				$scope.connectionerror = "glyphicon-ban-circle"
+				$scope.incidentcounter = 1;
 
 			}
 		})
@@ -66,11 +68,11 @@ angular.module('dashboard', [])
 					$scope.taskstatus = "danger";
 				}
 
-				$scope.connectionerror = "";
+				$scope.changescounter = 0;
 
 			}else{
 
-				$scope.connectionerror = "glyphicon-ban-circle";
+				$scope.taskscounter = 1;
 
 			}
 		})
@@ -92,13 +94,12 @@ angular.module('dashboard', [])
 					$scope.contactsstatus = "danger";
 				}
 
-				$scope.connectionerror = "";
+				$scope.changescounter = 0;
 
 			}else{
 
 				$scope.contactstatus = "success";
-
-				$scope.connectionerror = "glyphicon-ban-circle";
+				$scope.contactcounter = 1;
 
 			}
 
@@ -141,8 +142,6 @@ angular.module('dashboard', [])
 		$http.get("/Data/changes.php")
 		.then(function(response){
 
-			if(response != 'null'){
-
 				$scope.changes = response.data;
 
 				if($scope.changes.length <= 20){
@@ -153,15 +152,19 @@ angular.module('dashboard', [])
 					$scope.changesstatus = "danger";
 				}
 
-				$scope.connecitonerror = "";
-
-			}else{
-
-				$scope.connectionerror = "glyphicon-ban-circle";
-
-			}
+			
 
 		})
+	}
+
+	$scope.connectionstatus = function(){
+
+		if($scope.incidentcounter + $scope.taskscounter + $scope.changescounter > 0){
+			$scope.connectionerror = "glyphicon-ban-circle";
+		}else{
+			$scope.connecitonerror = "";
+		}
+
 	}
 
 /* Load page */
@@ -170,12 +173,19 @@ angular.module('dashboard', [])
 	$scope.contacts();
 	$scope.changes();
 	$scope.serverstatus();
+
+	$scope.incidentcounter = 0;
+	$scope.taskscounter = 0;
+	$scope.contactcounter = 0;
+	$scope.changescounter = 0;
+
 	
 	$interval($scope.incidents, 60000);
 	$interval($scope.tasks,60000);
 	$interval($scope.contacts,60000);
 	$interval($scope.changes, 60000);
-	$interval($scope.serverstatus, 60000);
+	$interval($scope.serverstatus, 250000);
+	$interval($scope.connectionstatus,30000);
 
 /* Sets date css */
 	$scope.getdateclass = function(dateVal){
