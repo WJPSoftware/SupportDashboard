@@ -25,7 +25,7 @@
 
         <!--Incidents -->
 
-        <h1 style="margin-left:15px; margin-top:0px;"><small><span ng-if="incidentlimit >= 8">Top 8</span>Incidents</small></h1>
+        <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8</span>Incidents</small></h1>
         <table class="table">
         <tr> 
           <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
@@ -49,7 +49,7 @@
 
       <!--Changes -->
 
-      <h1 style="margin-left:15px; margin-top:-25px;"><small>Top {{changelimit}} Changes</small></h1>
+      <h1 style="margin-left:15px; margin-top:-25px;"><small ng-class="{'danger-text':changescounter==1,'success-text':changescounter==0}">Top {{changelimit}} Changes</small></h1>
 
        <table class="table">
         <tr> 
@@ -107,7 +107,7 @@
           
           <!--Tasks from Insightly -->
 
-            <h1 style="margin-top:0px;"><small>Top 12 Tasks</small></h1>
+            <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}">Top 12 Tasks</small></h1>
 
             <table class="table">
                 <tr> 

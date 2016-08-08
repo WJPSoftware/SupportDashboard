@@ -41,11 +41,12 @@ angular.module('dashboard', [])
 					$scope.incidentlimit = 8;
 				}
 
-				$scope.changescounter = 0;
+				$scope.incidentcounter = 0;
 
 			}else{
 
 				$scope.incidentcounter = 1;
+				console.log("Incidents Failed to Load At:" + Date.now());
 
 			}
 		})
@@ -68,11 +69,12 @@ angular.module('dashboard', [])
 					$scope.taskstatus = "danger";
 				}
 
-				$scope.changescounter = 0;
+				$scope.taskscounter = 0;
 
 			}else{
 
 				$scope.taskscounter = 1;
+				console.log("Tasks Failed to Load At:" + Date.now());
 
 			}
 		})
@@ -142,6 +144,8 @@ angular.module('dashboard', [])
 		$http.get("/Data/changes.php")
 		.then(function(response){
 
+			if(response.data != ""){
+
 				$scope.changes = response.data;
 
 				if($scope.changes.length <= 20){
@@ -152,6 +156,15 @@ angular.module('dashboard', [])
 					$scope.changesstatus = "danger";
 				}
 
+				$scope.changescounter = 0;
+
+			}else{
+
+				$scope.changescounter = 1;
+				console.log("Changes Failed to Load At:" + Date.now());
+
+			}
+
 			
 
 		})
@@ -159,7 +172,9 @@ angular.module('dashboard', [])
 
 	$scope.connectionstatus = function(){
 
-		if($scope.incidentcounter + $scope.taskscounter + $scope.changescounter > 0){
+		$scope.counter = $scope.incidentcounter + $scope.taskscounter + $scope.changescounter;
+
+		if($scope.counter > 0){
 			$scope.connectionerror = "glyphicon-ban-circle";
 		}else{
 			$scope.connecitonerror = "";
@@ -173,6 +188,7 @@ angular.module('dashboard', [])
 	$scope.contacts();
 	$scope.changes();
 	$scope.serverstatus();
+	$scope.connectionstatus();
 
 	$scope.incidentcounter = 0;
 	$scope.taskscounter = 0;

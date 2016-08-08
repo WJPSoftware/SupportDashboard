@@ -127,3 +127,10 @@ footer{
 .box{
 	height: 200px;
 }
+
+.danger-text{
+	color:rgb(206, 0, 0)!important;
+}
+.success-text{
+	color: #999!important;
+}
