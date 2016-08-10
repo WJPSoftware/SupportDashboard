@@ -68,7 +68,7 @@ angular.module('dashboard', [])
 				} else {
 					$scope.taskstatus = "danger";
 				}
-
+				
 				$scope.taskscounter = 0;
 
 			}else{

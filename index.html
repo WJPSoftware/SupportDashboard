@@ -107,7 +107,7 @@
           
           <!--Tasks from Insightly -->
 
-            <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}">Top 12 Tasks</small></h1>
+            <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}"><span ng-if="tasks.length >= 12">Top 12</span>Tasks</small></h1>
 
             <table class="table">
                 <tr> 
@@ -116,7 +116,7 @@
                 <th>Status</th>
               </tr>
               <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 12">
-                <td>{{t.Title}}</td>
+                <td>{{t.Title | limitTo: 35 }}{{t.Title.length > 35 ? '...' : ''}}</td>
                 <td ng-class="getdateclass(t.DUE_DATE)">{{convertToDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
