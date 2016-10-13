@@ -88,19 +88,24 @@ angular.module('dashboard', [])
 			if(response.data != ""){
 				$scope.contacts = response.data;
 
-				if($scope.contacts.length <= 3){
+				if($scope.contacts.Count <= 3){
 					$scope.contactstatus = "success";
-				} else if (3 < $scope.contacts.length && $scope.contacts.length <= 5 ){
+				} else if (3 < $scope.contacts.Count && $scope.contacts.Count <= 5 ){
 					$scope.contactstatus = "warning";
 				} else {
 					$scope.contactsstatus = "danger";
 				}
 
-				$scope.changescounter = 0;
+				if($scope.contacts.Count == ""){
+					$scope.contacts.Count = "*";
+				}
+
+				$scope.contactcounter = 0;
 
 			}else{
 
-				$scope.contactstatus = "success";
+				$scope.contacts.Count = "-";
+				$scope.contactstatus = "default";
 				$scope.contactcounter = 1;
 
 			}
@@ -172,7 +177,7 @@ angular.module('dashboard', [])
 
 	$scope.connectionstatus = function(){
 
-		$scope.counter = $scope.incidentcounter + $scope.taskscounter + $scope.changescounter;
+		$scope.counter = $scope.incidentcounter + $scope.taskscounter + $scope.changescounter + $scope.contactcounter;
 
 		if($scope.counter > 0){
 			$scope.connectionerror = "glyphicon-ban-circle";
@@ -198,7 +203,7 @@ angular.module('dashboard', [])
 	
 	$interval($scope.incidents, 60000);
 	$interval($scope.tasks,60000);
-	$interval($scope.contacts,60000);
+	$interval($scope.contacts,600000);
 	$interval($scope.changes, 60000);
 	$interval($scope.serverstatus, 250000);
 	$interval($scope.connectionstatus,30000);
