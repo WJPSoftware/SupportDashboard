@@ -10,11 +10,12 @@
 <!doctype html>
 <html ng-app="dashboard">
   <head>
+    <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/status.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
-    <script src="App/functions.js"></script>
+    <script src="App/functions.js"></script>  
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
   </head>
@@ -40,7 +41,7 @@
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
           <td>{{ x.reference_num}}</td>
           <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
-          <td>{{ getservicename(x.service.name)}}</td>
+          <td>{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
           <td>{{ getassigneename(x.assigned_user.full_name)}}</td>
           <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
@@ -67,7 +68,7 @@
           <td ng-class="{'danger':y.risk=='High','warning':y.risk=='Medium','success':y.risk=='Low'}">&nbsp;</td>
           <td>{{ y.id}}</td>
           <td>{{ y.title | limitTo: 30 }}{{y.title.length > 30 ? '...' : ''}}</td>
-          <td>{{ getservicename(y.service.name)}}</td>
+          <td>{{ getservicename(y.service.name) | limitTo: 7}}{{getservicename(y.service.name).length > 7 ? '...' : ''}}</td>
           <td>{{ getassigneename(y.assigned_user.full_name)}}</td>          
           <td ng-class="getdateclass(y.due_live_at)">{{(y.due_live_at | date:'dd/MM/yyyy') || 'No Date'}}</td>
           <td>{{ y.estimated_hours}}</td>          
