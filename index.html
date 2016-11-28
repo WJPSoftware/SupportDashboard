@@ -95,7 +95,7 @@
 
           <table class="table">
          
-            <tr ng-repeat="s in serverstatus | limitTo: 3000">
+            <tr class="svrstatus" ng-repeat="s in serverstatus | limitTo: 3000">
               <td><b>{{s.Label}}</b></td>
               <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
             </tr>

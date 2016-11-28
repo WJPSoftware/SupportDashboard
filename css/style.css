@@ -112,7 +112,7 @@ footer{
 	-moz-border-radius: 7.5px;
 	-webkit-border-radius: 7.5px;
 	border-radius: 7.5px;
-	margin-top: 7px; 
+	/*margin-top: 7px; */
 }
 
 .status-bad{
@@ -122,10 +122,10 @@ footer{
 	-moz-border-radius: 7.5px;
 	-webkit-border-radius: 7.5px;
 	border-radius: 7.5px;
-	margin-top: 7px;
+	/*margin-top: 7px;*/
 }
 .box{
-	height: 200px;
+	height: 215px;
 }
 
 .danger-text{
@@ -133,4 +133,7 @@ footer{
 }
 .success-text{
 	color: #999!important;
+}
+.svrstatus{
+	height: 25px;
 }
