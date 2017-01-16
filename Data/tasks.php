@@ -39,7 +39,7 @@
 
     foreach ($list as $item) {
 
-    	if($item->{'COMPLETED'} != "1"){
+    	if($item->{'COMPLETED'} != "1" && $item->{'DUE_DATE'} < date("Y-m-d",strtotime('+3 months'))){
 
     		$return = array_merge($return,array($item));
     	}
