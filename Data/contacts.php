@@ -13,7 +13,7 @@
  	// ************************************************************* //
 	// Gets all contacts from WJPS                                   //
 	// ************************************************************* //
-	curl_setopt($ch,CURLOPT_URL,"https://www.wjps.co.uk/contactformapi.php?type=count");
+	curl_setopt($ch,CURLOPT_URL,"https://wjps.co.uk/api/contactformapi.php?type=count");
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 
 	$headr = array();
