@@ -15,7 +15,8 @@
     <script src="js/status.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
-    <script src="App/functions.js"></script>  
+    <script src="App/functions.js"></script>
+    <script src="js/panel.js"></script>  
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
   </head>
@@ -107,6 +108,8 @@
       <div class="row">
           
           <!--Tasks from Insightly -->
+          
+          <div id="toggleablearea_tasks" style="display:none;">
 
             <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}"><span ng-if="tasks.length >= 12">Top 12 </span>Tasks</small></h1>
 
@@ -122,6 +125,33 @@
                 <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
               </tr>
             </table>
+            
+          </div>
+          <div id="toggleablearea_toggl" style="">
+
+            <h1 style="margin-top:0px;"><small><span>Toggl Activities </span></small></h1>
+
+            <table class="table">
+              <tr> 
+                <th>User</th>
+                <th>Task</th>
+                <th>Time</th>
+              </tr>
+              <tr ng-repeat="a in activities | limitTo: 10">
+                <td>{{a.Username}}</td>                
+                <td>{{a.Description}}</td>
+                <td ng-class="a.IsCurrent == 1 ? 'success' : ''">{{a.Duration}} Minutes</td>
+              </tr>
+            </table>
+                        
+          </div>
+          <div id="toggleablearea_alfie" style='display:none;'>
+            <a class="twitter-timeline" data-height="690" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/alfie_blacklab">Tweets by alfie_blacklab</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div id="toggleablearea_WJPS" style='display:none;'>
+            <a class="twitter-timeline" data-height="690" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/WJPSoftware">Tweets by WJPS</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          
       </div>     
      
     </div>

@@ -79,7 +79,27 @@ angular.module('dashboard', [])
 			}
 		})
 	}
+	
+	$scope.activities = function() {
+		$http.get("/Data/togglController.php")
+		.then(function(response) {
+			
+			if(response.data != 'null'){
 
+				$scope.activities = response.data;
+				
+				if($scope.activities.IsCurrent == 1){
+					$scope.activitystatus = "success";
+				}
+			
+			}else{
+
+				console.log("Activities Failed to Load At:" + Date.now());
+
+			}
+		})
+	}
+	
 /* connects to and fills in data from /Data/contacts.php */
 	$scope.contacts = function(){
 		$http.get("/Data/contacts.php")
@@ -190,6 +210,7 @@ angular.module('dashboard', [])
 /* Load page */
 	$scope.incidents();
 	$scope.tasks();
+	$scope.activities();
 	$scope.contacts();
 	$scope.changes();
 	$scope.serverstatus();
@@ -205,6 +226,7 @@ angular.module('dashboard', [])
 	$interval($scope.tasks,60000);
 	$interval($scope.contacts,600000);
 	$interval($scope.changes, 60000);
+	$interval($scope.activities, 60000);
 	$interval($scope.serverstatus, 250000);
 	$interval($scope.connectionstatus,30000);
 
