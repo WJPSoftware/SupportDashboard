@@ -135,12 +135,14 @@
               <tr> 
                 <th>User</th>
                 <th>Task</th>
+                <th>Project</th>
                 <th>Time</th>
               </tr>
-              <tr ng-repeat="a in activities | limitTo: 10">
-                <td>{{a.Username}}</td>                
-                <td>{{a.Description}}</td>
-                <td ng-class="a.IsCurrent == 1 ? 'success' : ''">{{a.Duration}} Minutes</td>
+              <tr ng-repeat="a in activities | limitTo: 13">
+                <td nowrap>{{a.Username}}</td>
+                <td nowrap>{{a.Description | limitTo: 20}}{{a.Description.length > 20 ? "..." : ""}}</td>
+                <td nowrap>{{a.Project | limitTo: 20}}{{a.Project.length > 20 ? "..." : ""}}</td>
+                <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}} Minutes</td>
               </tr>
             </table>
                         
@@ -150,6 +152,14 @@
           </div>
           <div id="toggleablearea_WJPS" style='display:none;'>
             <a class="twitter-timeline" data-height="670" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/WJPSoftware">Tweets by WJPS</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+          <div id="toggleablearea_WCSStatus" style='display:none;'>
+            <table class="table">           
+              <tr class="svrstatus" ng-repeat="s in wcsserverstatus | limitTo: 3000">
+                <td><b>{{s.Label}}</b> <span style='font-size:70%;'>({{s.URL}})</span></td>
+                <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
+              </tr>
+            </table>
           </div>
           
       </div>     

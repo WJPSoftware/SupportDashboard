@@ -162,6 +162,36 @@ angular.module('dashboard', [])
 		})
 
 	}
+	
+	/* connects to and fills in data from /Data/WCSstatus.php */
+	$scope.wcsserverstatus = function(){
+
+		$http.get("/Data/WCSstatus.php")
+		.then(function(response){
+
+			$scope.wcsserverstatus = response.data;
+
+			var i = 0;
+
+			$scope.wcsserverstatus.forEach(function(wcsstatusresponse){
+				if(wcsstatusresponse.Status == "FALSE"){
+					i++;
+				}
+				return;
+			});
+
+			if(i == 0){
+				$scope.allserverstatus = "success";
+			}else{
+				$scope.allserverstatus = "danger";
+			}
+		
+		
+			
+
+		})
+
+	}
 
 /* connects to and fills in data from /Data/changes.php */
 	$scope.changes = function(){
@@ -215,6 +245,7 @@ angular.module('dashboard', [])
 	$scope.changes();
 	$scope.serverstatus();
 	$scope.connectionstatus();
+	$scope.wcsserverstatus();
 
 	$scope.incidentcounter = 0;
 	$scope.taskscounter = 0;
@@ -228,6 +259,7 @@ angular.module('dashboard', [])
 	$interval($scope.changes, 60000);
 	$interval($scope.activities, 60000);
 	$interval($scope.serverstatus, 250000);
+	$interval($scope.wcsserverstatus, 250000);
 	$interval($scope.connectionstatus,30000);
 
 /* Sets date css */

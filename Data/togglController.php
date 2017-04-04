@@ -6,22 +6,28 @@
   $usersUrl = "https://02d71770f854e519d0bd93528fa6c87b:api_token@www.toggl.com/api/v8/workspaces/1867294/users";
   $usersJSON = file_get_contents($usersUrl);
   
+  $projectUrl = "https://02d71770f854e519d0bd93528fa6c87b:api_token@www.toggl.com/api/v8/workspaces/1867294/projects";
+  $projectJSON = file_get_contents($projectUrl);
+  
   $ActivityArray = json_decode($JSON, true)[activity];
   $UsersArray = json_decode($usersJSON, true);
+  $ProjectsArray = json_decode($projectJSON, true);
   
-  // print_r($ActivityArray);
+  //print_r($ProjectsArray);
   // print_r($UsersArray);
   
   $FullArr = array();
   
   foreach ($ActivityArray as $key => $value) {
     $user = $value[user_id];
+    $project = $value[project_id];
     $Username = getUser($user, $UsersArray);
+    $ProjectName = getProject($project, $ProjectsArray);
     
     $current = $value[duration] < 0 ? 1 : 0;
     $duration = $value[duration] > 0 ? round($value[duration]/60) : round((time() + $value[duration])/60);
     
-    $InnerArr = array("Username" => $Username, "IsCurrent" => $current, "Duration" => $duration, "Description" => $value[description]);
+    $InnerArr = array("Username" => $Username, "IsCurrent" => $current, "Duration" => $duration, "Description" => $value[description], "Project" => $ProjectName);
     array_push($FullArr,$InnerArr);
   }
   
@@ -32,6 +38,15 @@
     foreach ($UsersArray as $userKey => $userValue) {
       if($userid == $userValue[id]){
         return $userValue[fullname];
+      }
+    }
+  }
+  
+  function getProject($projectid, $ProjectsArray){
+    foreach ($ProjectsArray as $projectKey => $projectValue) {
+      if($projectid == $projectValue[id]){
+        //print($projectValue[name]);
+        return $projectValue[name];
       }
     }
   }

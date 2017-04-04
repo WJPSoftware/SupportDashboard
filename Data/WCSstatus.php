@@ -12,12 +12,12 @@
 	// ************************************************************* //
 	// Servers to check                                              //
 	// ************************************************************* //
-	$Servers = array("Portal" => "5.77.35.102","WCS1" => "5.77.39.88","Reseller" => "109.203.107.26","EBM" => "109.203.109.118");
+	$Servers = array("ALBPC" => "www.aiskewleemingbarpc.org.uk", "ATHP" => "www.athp.org.uk", "BCL" => "www.bedalecommunitylibrary.org.uk", "BTC" => "www.bedale-tc.gov.uk", "MHS" => "www.mashamshireshow.org.uk", "NEPPS" => "www.nepps.org.uk", "NESPS" => "www.nesps.org.uk", "NWPQA" => "www.nwpqa.nhs.uk", "PASG" => "www.pasg.co.uk", "QANEY" => "www.qaney.co.uk", "QCNW" => "www.qcnw.nhs.uk", "SQCL" => "www.sqcl.org.uk", "WJPS" => "www.wjps.co.uk", "YCP" => "www.ycp.org.uk", "YHPPC" => "www.yhppc.nhs.uk");
 
 	$i = 0;
 
 	foreach ($Servers as $Name => $Server) {
-		$Status[$i] = array("Label" => $Name, "Status" => ping($Server));
+		$Status[$i] = array("Label" => $Name, "URL" => $Server, "Status" => ping($Server));
 		$i++;
 	}
 
@@ -26,11 +26,17 @@
 	// ************************************************************* //
 	// Ping the Server                                               //
 	// ************************************************************* //
-	function ping($host,$port=80,$timeout=6)
+	function ping($host,$port=80,$timeout=3)
 	{
         $fsock = @fsockopen($host, $port, $errno, $errstr, $timeout);
-        if (!is_resource($fsock)){ return "FALSE"; }
-        else { return "TRUE"; }
+        if (!is_resource($fsock))
+        {
+                return "FALSE";
+        }
+        else
+        {
+                return "TRUE";
+        }
 	}
 
 ?>
