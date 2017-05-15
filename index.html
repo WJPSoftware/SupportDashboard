@@ -140,9 +140,9 @@
               </tr>
               <tr ng-repeat="a in activities | limitTo: 13">
                 <td nowrap>{{a.Username}}</td>
-                <td nowrap>{{a.Description | limitTo: 20}}{{a.Description.length > 20 ? "..." : ""}}</td>
-                <td nowrap>{{a.Project | limitTo: 20}}{{a.Project.length > 20 ? "..." : ""}}</td>
-                <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}} Minutes</td>
+                <td nowrap>{{a.Description | limitTo: 18}}{{a.Description.length > 18 ? "..." : ""}}</td>
+                <td nowrap>{{a.Project | limitTo: 18}}{{a.Project.length > 18 ? "..." : ""}}</td>
+                <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}}</td>
               </tr>
             </table>
                         

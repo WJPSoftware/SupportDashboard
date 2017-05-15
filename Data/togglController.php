@@ -25,14 +25,27 @@
     $ProjectName = getProject($project, $ProjectsArray);
     
     $current = $value[duration] < 0 ? 1 : 0;
-    $duration = $value[duration] > 0 ? round($value[duration]/60) : round((time() + $value[duration])/60);
+    //$duration = $value[duration] > 0 ? round($value[duration]/60) : round((time() + $value[duration])/60);
     
+    if($value[duration] > 0){
+      $duration = minutesToHours($value[duration]/60);
+    }else{
+      $duration = minutesToHours((time() + $value[duration])/60);
+    }
+        
     $InnerArr = array("Username" => $Username, "IsCurrent" => $current, "Duration" => $duration, "Description" => $value[description], "Project" => $ProjectName);
     array_push($FullArr,$InnerArr);
   }
   
   print(json_encode($FullArr));
   
+  function minutesToHours($minutes){
+    if($minutes >= 60){
+      return round($minutes/60, 1) . " Hours";
+    }else{
+      return round($minutes) . " Minutes";
+    }
+  }
   
   function getUser($userid, $UsersArray){
     foreach ($UsersArray as $userKey => $userValue) {
