@@ -23,6 +23,12 @@ body{
 	font-size: 18px;
 
 	width: 99%;
+	
+	overflow-x: hidden;
+}
+
+.rowSimple{
+	margin-right: -30px!important; 
 }
 
 td .dangerbox{
@@ -45,7 +51,7 @@ td .sucessbox{
 }
 
 .success, .bg-success{
-	background: #0bb30b !important;
+	background: #237700 !important;
 }
 
 .info, .bg-info{
@@ -80,12 +86,12 @@ footer{
 	width: 100%;
 	bottom: 0;
 	position: absolute;
-	height: 50px;
+	height: 40px;
 	box-sizing: border-box;
 }
 
 #foot{
-	line-height: 50px;
+	line-height: 40px;
 	margin-left: 5%;
 }
 
@@ -128,6 +134,15 @@ footer{
 	height: 215px;
 }
 
+.box-simple{
+	height: 175px;
+	text-align: center;
+}
+
+.simple-number-heading{
+	font-size: 70px;
+}
+
 .danger-text{
 	color:rgb(206, 0, 0)!important;
 }
@@ -136,4 +151,16 @@ footer{
 }
 .svrstatus{
 	height: 25px;
+}
+
+.statusHeader{
+	font-size: 175%!important;
+}
+
+.noBorder{
+	border-top: 0px!important;
+}
+
+.lightText{
+	font-weight: 250;
 }

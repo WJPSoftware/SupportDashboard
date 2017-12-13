@@ -1,0 +1,131 @@
+<!-- *********************************************** -->
+<!-- Support Dashboard Simple                         -->
+<!-- Original Developer: WJP Software Limited        -->
+<!-- http://www.wjps.co.uk                           -->
+<!-- Open Source Code - Please modify for your       -->
+<!-- requirements and needs.                         -->
+<!-- *********************************************** -->
+
+
+<!doctype html>
+<html ng-app="dashboard">
+  <head>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/status.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="App/app.js"></script>
+    <script src="App/functions.js"></script>
+    <script src="js/panel.js"></script>  
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css?v=5" rel="stylesheet">
+  </head>
+  <body class="simpleHt" ng-controller="DashboardController">
+    
+    <div class="row rowSimple">
+      <div class="col-md-12">
+        <div class="row">
+
+        <!--Status Boxes -->
+
+          <div class="col-md-3 box-simple" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning",'bg-success':incidentstatus=="success"}>
+            <h2 class="simple-number-heading">{{incidents.length}}</h2><h3 class="statusHeader">Incidents Open</h3>
+          </div>
+          <div class="col-md-3 box-simple" ng-class={'bg-danger':changesstatus=="danger",'bg-warning':changesstatus=="warning",'bg-success':changesstatus=="success"}>
+            <h2 class="simple-number-heading">{{changes.length}}</h2><h3 class="statusHeader">Changes Open</h3>
+          </div>
+          <div class="col-md-3 box-simple" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
+            <h2 class="simple-number-heading">{{contacts.Count}}</h2><h3 class="statusHeader">Contacts Open</h3></div>
+          <div class="col-md-3 box-simple" ng-class={'bg-danger':allserverstatus=="danger",'bg-success':allserverstatus=="success"}>
+           <!--Server Status In-House -->        
+
+            <table class="table">
+           
+              <tr class="svrstatus" ng-repeat="s in serverstatus | limitTo: 3000">
+                <td><b>{{s.Label}}</b></td>
+                <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
+              </tr>
+            </table>
+          </div>
+          
+
+        </div>
+      </div>
+      <div class="col-md-12">
+
+        <!--Incidents -->
+
+        <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}">Latest Incidents</small></h1>
+        <table class="table">
+        <tr> 
+          <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
+          <th style="width:7%">ID</th>
+          <th>Title</th>
+          <th style="width:12%">Service</th>
+          <th style="width:12%">Assigned</th>
+          <th style="width:12%">Created</th>
+          <th style="width:12%">Due Date</th>
+        </tr>
+        <tr ng-repeat="x in incidents | orderBy: 'created_at':true | limitTo: 8">
+          <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
+          <td>{{ x.reference_num}}</td>
+          <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
+          <td>{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
+          <td>{{ getassigneename(x.assigned_user.full_name)}}</td>
+          <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
+          <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+
+    </div>
+        
+    <div class="col-md-12">
+      <div id="toggleablearea_toggl" style="">
+
+        <h1 style="margin-left:15px; margin-top:-34px;"><small><span>Toggl </span></small></h1>
+        
+        <table class="table">
+          
+          <tr>
+            <td style="width:33%" ng-class="{'success':togglJP.IsCurrent == 1}">
+              <b>James:</b> {{togglJP.Description}}
+            </td>
+            <td style="width:34%" ng-class="{'success':togglSL.IsCurrent == 1}">
+              <b>Steven:</b> {{togglSL.Description}}
+            </td>
+            <td style="width:33%" ng-class="{'success':togglLJ.IsCurrent == 1}">
+              <b>Lee:</b> {{togglLJ.Description}}
+            </td>
+          </tr>
+          
+        </table>
+
+        <!-- <table class="table">
+          <tr> 
+            <th>User</th>
+            <th>Task</th>
+            <th>Project</th>
+            <th>Time</th>
+          </tr>
+          <tr ng-repeat="a in activities | limitTo: 13">
+            <td nowrap>{{a.Username}}</td>
+            <td nowrap>{{a.Description | limitTo: 18}}{{a.Description.length > 18 ? "..." : ""}}</td>
+            <td nowrap>{{a.Project | limitTo: 18}}{{a.Project.length > 18 ? "..." : ""}}</td>
+            <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}}</td>
+          </tr>
+        </table>                     -->
+      </div>          
+    </div>    
+  </div>
+
+  <!--Footer -->
+
+  <footer>
+    <div id='foot'>
+      <span>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span><span style='right: 5%; position: absolute;'>Last Updated: {{footerdate | date: 'EEEE d MMMM y HH:mm'}} <span class='error glyphicon {{connectionerror}}'> </span></span>
+    </div>
+  </footer>
+
+    
+  </body>
+</html>

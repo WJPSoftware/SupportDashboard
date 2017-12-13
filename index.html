@@ -9,27 +9,29 @@
 
 <!doctype html>
 <html ng-app="dashboard">
-  <head>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/status.js"></script>
-    <script src="Scripts/angular.min.js"></script>
-    <script src="App/app.js"></script>
-    <script src="App/functions.js"></script>
-    <script src="js/panel.js"></script>  
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body ng-controller="DashboardController">
-    
-    <div class="row">
-      <div class="col-md-7">
 
-        <!--Incidents -->
+<head>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/status.js"></script>
+  <script src="Scripts/angular.min.js"></script>
+  <script src="App/app.js"></script>
+  <script src="App/functions.js"></script>
+  <script src="js/panel.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
 
-        <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8 </span>Incidents</small></h1>
-        <table class="table">
-        <tr> 
+<body ng-controller="DashboardController">
+
+  <div class="row">
+    <div class="col-md-7">
+
+      <!--Incidents -->
+
+      <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8 </span>Incidents</small></h1>
+      <table class="table">
+        <tr>
           <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
           <th style="width:7%">ID</th>
           <th>Title</th>
@@ -53,8 +55,8 @@
 
       <h1 style="margin-left:15px; margin-top:-25px;"><small ng-class="{'danger-text':changescounter==1,'success-text':changescounter==0}">Top {{changelimit}} Changes</small></h1>
 
-       <table class="table">
-        <tr> 
+      <table class="table">
+        <tr>
           <th style='text-align:center;width:20px'><span class='glyphicon glyphicon-random'></span></th>
           <th style='text-align:center;width:20px'><span class='glyphicon glyphicon-flash'></span></th>
           <th style="width:7%">ID</th>
@@ -70,100 +72,195 @@
           <td>{{ y.id}}</td>
           <td>{{ y.title | limitTo: 30 }}{{y.title.length > 30 ? '...' : ''}}</td>
           <td>{{ getservicename(y.service.name) | limitTo: 7}}{{getservicename(y.service.name).length > 7 ? '...' : ''}}</td>
-          <td>{{ getassigneename(y.assigned_user.full_name)}}</td>          
+          <td>{{ getassigneename(y.assigned_user.full_name)}}</td>
           <td ng-class="getdateclass(y.due_live_at)">{{(y.due_live_at | date:'dd/MM/yyyy') || 'No Date'}}</td>
-          <td>{{ y.estimated_hours}}</td>          
+          <td>{{ y.estimated_hours}}</td>
         </tr>
       </table>
     </div>
     <div class="col-md-5">
       <div class="row">
 
-      <!--Status Boxes -->
+        <!--Status Boxes -->
 
-        <div class="col-md-3 box" ng-class={'bg-danger':incidentstatus=="danger",'bg-warning':incidentstatus=="warning",'bg-success':incidentstatus=="success"}>
-          <h2>{{incidents.length}}</h2><h3>Incidents<br/>Open</h3>
+        <div class="col-md-3 box" ng-class="{ 'bg-danger':incidentstatus==='danger' , 'bg-warning':incidentstatus=='warning' , 'bg-success':incidentstatus==='success' }">
+          <h2>{{incidents.length}}</h2>
+          <h3>Incidents<br/>Open</h3>
         </div>
-        <div class="col-md-3 box" ng-class={'bg-danger':changesstatus=="danger",'bg-warning':changesstatus=="warning",'bg-success':changesstatus=="success"}>
-          <h2>{{changes.length}}</h2><h3>Changes<br/>Open</h3>
+        <div class="col-md-3 box" ng-class="{ 'bg-danger':changesstatus==='danger' , 'bg-warning':changesstatus=='warning' , 'bg-success':changesstatus==='success' }">
+          <h2>{{changes.length}}</h2>
+          <h3>Changes<br/>Open</h3>
         </div>
-        <div class="col-md-3 box" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
-          <h2>{{contacts.Count}}</h2><h3>Contacts<br/>Open</h3></div>
-        <div class="col-md-3 box" ng-class={'bg-danger':allserverstatus=="danger",'bg-success':allserverstatus=="success"}>
-         <!--Server Status In-House -->        
+        <div class="col-md-3 box" ng-class="{ 'bg-danger':contactstatus==='danger' , 'bg-warning':contactstatus=='warning' , 'bg-success':contactstatus==='success' }">
+          <h2>{{contacts.Count}}</h2>
+          <h3>Contacts<br/>Open</h3></div>
+        <div class="col-md-3 box" ng-class="{ 'bg-danger':allserverstatus==='danger' , 'bg-success':allserverstatus==='success' }">
+          <!--Server Status In-House -->
 
           <h1 style="margin-top:0px;"><small style="color:#fff!Important;">Servers</small></h1>
 
           <table class="table">
-         
+
             <tr class="svrstatus" ng-repeat="s in serverstatus | limitTo: 3000">
               <td><b>{{s.Label}}</b></td>
-              <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
+              <td>
+                <p ng-class={ 'status-good':s.Status=="TRUE" , 'status-bad':s.Status=="FALSE" }></p>
+              </td>
             </tr>
           </table>
         </div>
-        
+
 
       </div>
       <div class="row">
-          
-          <!--Tasks from Insightly -->
-          
-          <div id="toggleablearea_tasks" style="display:none;">
 
-            <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}"><span ng-if="tasks.length >= 12">Top 12 </span>Tasks</small></h1>
+        <!--Tasks from Insightly -->
 
-            <table class="table">
-                <tr> 
-                <th>Title</th>
-                <th>Due Date</th>
-                <th>Status</th>
-              </tr>
-              <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 12">
-                <td>{{t.Title | limitTo: 35 }}{{t.Title.length > 35 ? '...' : ''}}</td>
-                <td ng-class="getdateclass(t.DUE_DATE)">{{convertToDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
-                <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
+        <div id="toggleablearea_tasks" style="display:none;">
+
+          <h1 style="margin-top:0px;"><small ng-class="{'danger-text':taskscounter==1,'success-text':taskscounter==0}"><span ng-if="tasks.length >= 12">Top 12 </span>Tasks</small></h1>
+
+          <table class="table">
+            <tr>
+              <th>Title</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+            <tr ng-repeat="t in tasks  | orderBy: 'DUE_DATE' | limitTo: 12">
+              <td>{{t.Title | limitTo: 35 }}{{t.Title.length > 35 ? '...' : ''}}</td>
+              <td ng-class="getdateclass(t.DUE_DATE)">{{convertToDate(t.DUE_DATE) | date:'dd/MM/yyyy'}}</td>
+              <td ng-class="getstatusclass(t.STATUS)">{{t.STATUS}}</td>
+            </tr>
+          </table>
+
+        </div>
+        <div id="toggleablearea_toggl" style="">
+
+          <h1 style="margin-top:0px;"><small><span>Toggl Activities </span></small></h1>
+
+          <table class="table">
+
+            <tr>
+              <td ng-class="{'success':togglJP.IsCurrent == 1}" colspan="2">
+                <b>James:</b>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+                Desc: <span class="lightText">{{togglJP.Description}}</span>
+              </td>
+              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+                Task: <span class="lightText">{{togglJP.Task}}</span>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+                Project: <span class="lightText">{{togglJP.Project}}</span>
+              </td>
+              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+                Time: <span class="lightText">{{togglJP.Duration}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding:2px!important;">
+
+              </td>
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglSL.IsCurrent == 1}" colspan="2">
+                <b>Steven:</b>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+                Desc: <span class="lightText">{{togglSL.Description}}</span>
+              </td>
+              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+                Task: <span class="lightText">{{togglSL.Task}}</span>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+                Project: <span class="lightText">{{togglSL.Project}}</span>
+              </td>
+              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+                Time: <span class="lightText">{{togglSL.Duration}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding:2px!important;">
+
+              </td>
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglLJ.IsCurrent == 1}" colspan="2">
+                <b>Lee:</b>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglLJ.IsCurrent == 1}" class="noBorder">
+                Desc: <span class="lightText">{{togglLJ.Description}}</span>
+              </td>
+              <td ng-class="{'success':togglLJ.IsCurrent == 1}" class="noBorder">
+                Task: <span class="lightText">{{togglLJ.Task}}</span>
+              </td>              
+            </tr>
+            <tr>
+              <td ng-class="{'success':togglLJ.IsCurrent == 1}" class="noBorder">
+                Project: <span class="lightText">{{togglLJ.Project}}</span>
+              </td>
+              <td ng-class="{'success':togglLJ.IsCurrent == 1}" class="noBorder">
+                Time: <span class="lightText">{{togglLJ.Duration}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding:2px!important;">
+                
+              </td>
+            </tr>
+
+          </table>
+          <table class="table">
+            <thead>
+              <th>
+                Project
+              </th>
+              <th>
+                Time Left
+              </th>
+              <th>
+                Client
+              </th>
+            </thead>              
+              <tr ng-repeat="p in projects | orderBy:'TimeLeft' | limitTo: 3" ng-class="{ 'bg-danger': p.TimeLeft < 1 }">
+                <td nowrap>{{p.Name}}</td>
+                <td nowrap>{{p.TimeLeft}}</td>
+                <td nowrap>{{p.Client | limitTo: 30}}{{p.Client.length > 30 ? '...' : ''}}</td>
               </tr>
             </table>
-            
-          </div>
-          <div id="toggleablearea_toggl" style="">
 
-            <h1 style="margin-top:0px;"><small><span>Toggl Activities </span></small></h1>
+        </div>
+        <div id="toggleablearea_alfie" style='display:none;'>
+          <a class="twitter-timeline" data-height="670" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/alfie_blacklab">Tweets by alfie_blacklab</a>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div id="toggleablearea_WJPS" style='display:none;'>
+          <a class="twitter-timeline" data-height="670" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/WJPSoftware">Tweets by WJPS</a>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div id="toggleablearea_WCSStatus" style='display:none;'>
+          <table class="table">
+            <tr class="svrstatus" ng-repeat="s in wcsserverstatus | limitTo: 3000">
+              <td><b>{{s.Label}}</b> <span style='font-size:70%;'>({{s.URL}})</span></td>
+              <td>
+                <p ng-class={ 'status-good':s.Status=="TRUE" , 'status-bad':s.Status=="FALSE" }></p>
+              </td>
+            </tr>
+          </table>
+        </div>
 
-            <table class="table">
-              <tr> 
-                <th>User</th>
-                <th>Task</th>
-                <th>Project</th>
-                <th>Time</th>
-              </tr>
-              <tr ng-repeat="a in activities | limitTo: 13">
-                <td nowrap>{{a.Username}}</td>
-                <td nowrap>{{a.Description | limitTo: 18}}{{a.Description.length > 18 ? "..." : ""}}</td>
-                <td nowrap>{{a.Project | limitTo: 18}}{{a.Project.length > 18 ? "..." : ""}}</td>
-                <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}}</td>
-              </tr>
-            </table>
-                        
-          </div>
-          <div id="toggleablearea_alfie" style='display:none;'>
-            <a class="twitter-timeline" data-height="670" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/alfie_blacklab">Tweets by alfie_blacklab</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-          <div id="toggleablearea_WJPS" style='display:none;'>
-            <a class="twitter-timeline" data-height="670" data-theme="dark" data-show-replies="true" data-chrome="nofooter" href="https://twitter.com/WJPSoftware">Tweets by WJPS</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-          <div id="toggleablearea_WCSStatus" style='display:none;'>
-            <table class="table">           
-              <tr class="svrstatus" ng-repeat="s in wcsserverstatus | limitTo: 3000">
-                <td><b>{{s.Label}}</b> <span style='font-size:70%;'>({{s.URL}})</span></td>
-                <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
-              </tr>
-            </table>
-          </div>
-          
-      </div>     
-     
+      </div>
+
     </div>
 
   </div>
@@ -176,6 +273,7 @@
     </div>
   </footer>
 
-    
-  </body>
+
+</body>
+
 </html>
