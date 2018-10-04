@@ -7,7 +7,7 @@ function PanelLoop(){
     PanelStatus();
     PanelLoop();  
     i++;
-    if(i == 300){
+    if(i==300){
       i = 0;
       j++;
     }  

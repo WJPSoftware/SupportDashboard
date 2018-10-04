@@ -21,7 +21,7 @@ angular.module('dashboard', [])
 
             $scope.incidents = response.data;
 
-						console.log($scope.incidents.length);
+						console.log($scope.incidents.length)
 
             if ($scope.incidents.length <= 10) {
               $scope.incidentstatus = "success";
@@ -135,12 +135,15 @@ angular.module('dashboard', [])
             $scope.togglJP = $.grep(response.data, function(e) {
               return e.Username == "James Proctor"
             })[0];
-            $scope.togglLJ = $.grep(response.data, function(e) {
-              return e.Username == "Lee Jones"
+            // $scope.togglLJ = $.grep(response.data, function(e) {
+            //   return e.Username == "Lee Jones"
+            // })[0];
+            $scope.togglSH = $.grep(response.data, function(e) {
+              return e.Username == "Sam Horner"
             })[0];
-
-            console.log($scope.togglSL);
-
+            $scope.togglBK = $.grep(response.data, function(e) {
+              return e.Username == "Brandon Kyaw"
+            })[0];
 
           } else {
 
@@ -403,6 +406,10 @@ angular.module('dashboard', [])
           return 'JH';
         case 'Lee Jones':
           return 'LJ';
+        case 'Sam Horner':
+          return 'SH';
+        case 'Brandon Kyaw':
+          return 'BK';
         case 'WJPS Staff':
           return 'WJPS';
         case 'Stockton Quality Control Laboratory':

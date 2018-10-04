@@ -16,12 +16,12 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="App/app.js"></script>
     <script src="App/functions.js"></script>
-    <script src="js/panel.js"></script>  
+    <script src="js/panel.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css?v=5" rel="stylesheet">
   </head>
   <body class="simpleHt" ng-controller="DashboardController">
-    
+
     <div class="row rowSimple">
       <div class="col-md-12">
         <div class="row">
@@ -37,17 +37,17 @@
           <div class="col-md-3 box-simple" ng-class={'bg-danger':contactstatus=="danger",'bg-warning':contactstatus=="warning",'bg-success':contactstatus=="success"}>
             <h2 class="simple-number-heading">{{contacts.Count}}</h2><h3 class="statusHeader">Contacts Open</h3></div>
           <div class="col-md-3 box-simple" ng-class={'bg-danger':allserverstatus=="danger",'bg-success':allserverstatus=="success"}>
-           <!--Server Status In-House -->        
+           <!--Server Status In-House -->
 
             <table class="table">
-           
+
               <tr class="svrstatus" ng-repeat="s in serverstatus | limitTo: 3000">
                 <td><b>{{s.Label}}</b></td>
                 <td><p ng-class={'status-good':s.Status=="TRUE",'status-bad':s.Status=="FALSE"}></p></td>
               </tr>
             </table>
           </div>
-          
+
 
         </div>
       </div>
@@ -57,7 +57,7 @@
 
         <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}">Latest Incidents</small></h1>
         <table class="table">
-        <tr> 
+        <tr>
           <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
           <th style="width:7%">ID</th>
           <th>Title</th>
@@ -78,30 +78,36 @@
       </table>
 
     </div>
-        
+
     <div class="col-md-12">
       <div id="toggleablearea_toggl" style="">
 
         <h1 style="margin-left:15px; margin-top:-34px;"><small><span>Toggl </span></small></h1>
-        
+
         <table class="table">
-          
+
           <tr>
-            <td style="width:33%" ng-class="{'success':togglJP.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglJP.IsCurrent == 1}">
               <b>James:</b> {{togglJP.Description}}
             </td>
-            <td style="width:34%" ng-class="{'success':togglSL.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglSL.IsCurrent == 1}">
               <b>Steven:</b> {{togglSL.Description}}
             </td>
-            <td style="width:33%" ng-class="{'success':togglLJ.IsCurrent == 1}">
+            <!-- <td style="width:25%" ng-class="{'success':togglLJ.IsCurrent == 1}">
               <b>Lee:</b> {{togglLJ.Description}}
+            </td> -->
+            <td style="width:25%" ng-class="{'success':togglSH.IsCurrent == 1}">
+              <b>Sam:</b> {{togglSH.Description}}
+            </td>
+            <td style="width:25%" ng-class="{'success':togglBK.IsCurrent == 1}">
+              <b>Brandon:</b> {{togglBK.Description}}
             </td>
           </tr>
-          
+
         </table>
 
         <!-- <table class="table">
-          <tr> 
+          <tr>
             <th>User</th>
             <th>Task</th>
             <th>Project</th>
@@ -114,8 +120,8 @@
             <td ng-class="a.IsCurrent == 1 ? 'success' : ''" nowrap>{{a.Duration}}</td>
           </tr>
         </table>                     -->
-      </div>          
-    </div>    
+      </div>
+    </div>
   </div>
 
   <!--Footer -->
@@ -126,6 +132,6 @@
     </div>
   </footer>
 
-    
+
   </body>
 </html>
