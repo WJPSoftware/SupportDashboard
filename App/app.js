@@ -44,10 +44,10 @@ angular.module('dashboard', [])
 
             var time = new Date();
 
-            if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
+            if(TurnOffCheck(time) == true){
               SignController('dim');
               signPowered = false;
-            }else if((time.getHours() >= 8 && time.getMinutes() >= 30 && time.getHours() < 12) && !signPowered){
+            }else if(TurnOnCheck(time)){
               SignController('startup');
               signPowered = true;
             }
@@ -457,3 +457,30 @@ angular.module('dashboard', [])
     }
 
   })
+
+
+  function TurnOffCheck(time){
+    if(time.getDay() == 5){
+      if((time.getHours() >= 16 || time.getHours() < 8) && signPowered  ){
+        console.log('Friday after 4');
+        return true;
+      }
+    }
+    if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
+      console.log('Week day after 5');
+      return true;
+    }    
+    return false;
+  }
+
+  function TurnOnCheck(time){
+    if(time.getDay() > 0 && time.getDay < 6){
+      if((time.getHours() >= 8 && time.getMinutes() >= 55 && time.getHours() < 12) && !signPowered){
+        return true;
+      }
+      return false;
+    }else{
+      return false;
+    }
+    
+  }
