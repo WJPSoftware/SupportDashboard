@@ -13,17 +13,22 @@
 <head>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/status.js"></script>
+
   <script src="Scripts/angular.min.js"></script>
   <script src="App/app.js"></script>
   <script src="App/functions.js"></script>
   <script src="js/panel.js"></script>
+  <script src="js/led-control.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    setControllerLocation();
+  </script>
 </head>
 
 <body ng-controller="DashboardController">
-
+  <div id='application' style="display: none;">dash</div>
   <div class="row">
     <div class="col-md-7">
 
@@ -209,6 +214,7 @@
               </td>
             </tr>
             <tr>
+
               <td ng-class="{'success':togglSH.IsCurrent == 1}" class="noBorder">
                 Desc: <span class="lightText">{{togglSH.Description}}</span>
               </td>
@@ -260,6 +266,7 @@
                 Client
               </th>
             </thead>
+
               <tr ng-repeat="p in projects | orderBy:'TimeLeft' | limitTo: 1" ng-class="{ 'bg-danger': p.TimeLeft < 1 }">
                 <td nowrap>{{p.Name}}</td>
                 <td nowrap>{{p.TimeLeft}}</td>

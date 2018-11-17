@@ -6,22 +6,56 @@
 /* requirements and needs.                         */
 /* *********************************************** */
 
+var incidentRunCounter = 0;
+
+var signPowered = true;
 
 angular.module('dashboard', [])
 
   .controller('DashboardController', function($scope, $http, $interval) {
 
-
     /* connects to and fills in data from /Data/incidents.php */
     $scope.incidents = function() {
-      $http.get("/Data/incidents.php")
+      $http.get("Data/incidents.php")
         .then(function(response) {
 
           if (response.data != 'null') {
 
+            if(signPowered && incidentRunCounter > 0 && $scope.incidents.toString() != response.data.toString()){
+
+              if($scope.incidents.length < response.data.length){
+                var priority;
+                var rawPriority;
+                switch (response.data[0].priority.description.toLowerCase()) {
+                  case 'cosmetic':
+                    priority = 'project';
+                    break;
+                  case 'v. important':
+                    priority = 'vimportant';
+                    break;
+                  default:
+                    priority = response.data[0].priority.description.toLowerCase();
+                    break;
+                }
+
+                SignIncidentController(3,priority);
+              }
+            }
+
+            var time = new Date();
+
+            if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
+              SignController('dim');
+              signPowered = false;
+            }else if((time.getHours() >= 8 && time.getMinutes() >= 30 && time.getHours() < 12) && !signPowered){
+              SignController('startup');
+              signPowered = true;
+            }
+
             $scope.incidents = response.data;
 
-						console.log($scope.incidents.length)
+            incidentRunCounter++;
+
 
             if ($scope.incidents.length <= 10) {
               $scope.incidentstatus = "success";
@@ -48,7 +82,7 @@ angular.module('dashboard', [])
           } else {
 
             $scope.incidentcounter = 1;
-            console.log("Incidents Failed to Load At:" + Date.now());
+            console.error("Incidents Failed to Load At:" + Date.now());
 
           }
         })
@@ -56,7 +90,7 @@ angular.module('dashboard', [])
 
     /* connects to and fills in data from /Data/tasks.php */
     $scope.tasks = function() {
-      $http.get("/Data/tasks.php")
+      $http.get("Data/tasks.php")
         .then(function(response) {
 
           if (response.data != 'null') {
@@ -76,21 +110,17 @@ angular.module('dashboard', [])
           } else {
 
             $scope.taskscounter = 1;
-            console.log("Tasks Failed to Load At:" + Date.now());
+            console.error("Tasks Failed to Load At:" + Date.now());
 
           }
         })
     }
 
     $scope.activities = function() {
-      $http.get("/Data/togglController.php")
+      $http.get("Data/togglController.php")
         .then(function(response) {
 
-          console.log("TEST - |" + response.data + "|");
-
           if (response.data) {
-
-            console.log("toggl");
 
             $scope.activities = response.data;
 
@@ -100,20 +130,20 @@ angular.module('dashboard', [])
 
           } else {
 
-            console.log("Activities Failed to Load At:" + Date.now());
+            console.error("Activities Failed to Load At:" + Date.now());
 
           }
         })
     }
 
     $scope.projects = function() {
-      $http.get("/Data/togglProjectsController.php")
+      $http.get("Data/togglProjectsController.php")
         .then(function(response) {
 
           if (response.data) {
 
             $scope.projects = response.data;
-						console.log(response.data);
+						// console.log(response.data);
 
           } else {
 
@@ -124,7 +154,7 @@ angular.module('dashboard', [])
     }
 
     $scope.activitiesSimple = function() {
-      $http.get("/Data/togglController.php")
+      $http.get("Data/togglController.php")
         .then(function(response) {
 
           if (response.data) {
@@ -147,7 +177,7 @@ angular.module('dashboard', [])
 
           } else {
 
-            console.log("Activities Failed to Load At:" + Date.now());
+            console.error("Activities Failed to Load At:" + Date.now());
 
           }
         })
@@ -155,7 +185,7 @@ angular.module('dashboard', [])
 
     /* connects to and fills in data from /Data/contacts.php */
     $scope.contacts = function() {
-      $http.get("/Data/contacts.php")
+      $http.get("Data/contacts.php")
         .then(function(response) {
 
           if (response.data != "") {
@@ -189,7 +219,7 @@ angular.module('dashboard', [])
     /* connects to and fills in data from /Data/status.php */
     $scope.serverstatus = function() {
 
-      $http.get("/Data/status.php")
+      $http.get("Data/status.php")
         .then(function(response) {
 
           $scope.serverstatus = response.data;
@@ -216,7 +246,7 @@ angular.module('dashboard', [])
     /* connects to and fills in data from /Data/WCSstatus.php */
     $scope.wcsserverstatus = function() {
 
-      $http.get("/Data/WCSstatus.php")
+      $http.get("Data/WCSstatus.php")
         .then(function(response) {
 
           $scope.wcsserverstatus = response.data;
@@ -246,7 +276,7 @@ angular.module('dashboard', [])
     /* connects to and fills in data from /Data/changes.php */
     $scope.changes = function() {
 
-      $http.get("/Data/changes.php")
+      $http.get("Data/changes.php")
         .then(function(response) {
 
           if (response.data != "") {
@@ -266,7 +296,7 @@ angular.module('dashboard', [])
           } else {
 
             $scope.changescounter = 1;
-            console.log("Changes Failed to Load At:" + Date.now());
+            console.error("Changes Failed to Load At:" + Date.now());
 
           }
 
@@ -304,17 +334,20 @@ angular.module('dashboard', [])
     $scope.contactcounter = 0;
     $scope.changescounter = 0;
 
+    var delay1 = 60000;
+    var delay2 = 250000;
+    var delay3 = 30000;
 
-    $interval($scope.incidents, 60000);
-    $interval($scope.tasks, 60000);
-    $interval($scope.contacts, 600000);
-    $interval($scope.changes, 60000);
-    $interval($scope.activities, 60000);
-		$interval($scope.projects, 60000);
-    $interval($scope.activitiesSimple, 60000);
-    $interval($scope.serverstatus, 250000);
-    $interval($scope.wcsserverstatus, 250000);
-    $interval($scope.connectionstatus, 30000);
+    $interval($scope.incidents, delay1);
+    $interval($scope.tasks, delay1);
+    $interval($scope.contacts, delay1);
+    $interval($scope.changes, delay1);
+    $interval($scope.activities, delay1);
+		$interval($scope.projects, delay1);
+    $interval($scope.activitiesSimple, delay1);
+    $interval($scope.serverstatus, delay2);
+    $interval($scope.wcsserverstatus, delay2);
+    $interval($scope.connectionstatus, delay3);
 
     /* Sets date css */
     $scope.getdateclass = function(dateVal) {
