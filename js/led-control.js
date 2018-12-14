@@ -233,6 +233,9 @@ function ledSaveLastCommand(string,mode = 0){
 		case 0:
 			$.ajax({
 				url: ledcontrolUrl + '?type=update&name=Last_Command&val='+string,
+				success: function(data){
+					console.log(data);
+				}
 			});
 			break;
 		case 1://This saves the outer fill area
