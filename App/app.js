@@ -20,7 +20,6 @@ angular.module('dashboard', [])
         .then(function(response) {
 
           if (response.data != 'null') {
-
             if(signPowered && incidentRunCounter > 0 && $scope.incidents.toString() != response.data.toString()){
 
               if($scope.incidents.length < response.data.length){
@@ -49,13 +48,13 @@ angular.module('dashboard', [])
 
             var time = new Date();
 
-            // if(TurnOffCheck(time) == true){
-            //   SignController('dim');
-            //   signPowered = false;
-            // }else if(TurnOnCheck(time)){
-            //   SignController('startup');
-            //   signPowered = true;
-            // }
+            if(TurnOffCheck(time) == true){
+              SignController('dim');
+              signPowered = false;
+            }else if(TurnOnCheck(time)){
+              SignController('startup');
+              signPowered = true;
+            }
 
             $scope.incidents = response.data;
 
@@ -466,28 +465,28 @@ angular.module('dashboard', [])
   })
 
 
-  // function TurnOffCheck(time){
-  //   if(time.getDay() == 5){
-  //     if((time.getHours() >= 16 || time.getHours() < 8) && signPowered  ){
-  //       console.log('Friday after 4');
-  //       return true;
-  //     }
-  //   }
-  //   if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
-  //     console.log('Week day after 5');
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  function TurnOffCheck(time){
+    if(time.getDay() == 5){
+      if((time.getHours() >= 16 || time.getHours() < 8) && signPowered  ){
+        console.log('Friday after 4');
+        return true;
+      }
+    }
+    if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
+      console.log('Week day after 5');
+      return true;
+    }
+    return false;
+  }
 
-  // function TurnOnCheck(time){
-  //   if(time.getDay() > 0 && time.getDay < 6){
-  //     if((time.getHours() >= 8 && time.getMinutes() >= 55 && time.getHours() < 12) && !signPowered){
-  //       return true;
-  //     }
-  //     return false;
-  //   }else{
-  //     return false;
-  //   }
-  //
-  // }
+  function TurnOnCheck(time){
+    if(time.getDay() > 0 && time.getDay < 6){
+      if((time.getHours() >= 8 && time.getMinutes() >= 55 && time.getHours() < 12) && !signPowered){
+        return true;
+      }
+      return false;
+    }else{
+      return false;
+    }
+  
+  }

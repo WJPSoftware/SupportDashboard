@@ -1,10 +1,12 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 $Type = $_GET['type'];
 
 if(!$Type){echo('Invalid Input'); exit();}
 
-$mysqli = new mysqli("localhost", "dash_admin", "WJPSDBPASS", "dashboard");
+$mysqli = new mysqli("localhost", "dash_admin", "WJPSDBPASS", "Dashboard");
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());

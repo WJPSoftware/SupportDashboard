@@ -1,8 +1,8 @@
-const piAddress = '192.168.1.73';
+const piAddress = '192.168.1.240';
 
 switch ($('#application').html()) {
 	case 'hub':
-		var ledcontrolUrl = '../../supportDashboard/Data/ledcontrol.php';
+		var ledcontrolUrl = 'http://dashboard.wjps.net/Data/ledcontrol.php';
 		break;
 	default:
 		var ledcontrolUrl = 'Data/ledcontrol.php';
