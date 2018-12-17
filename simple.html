@@ -68,10 +68,10 @@
         </tr>
         <tr ng-repeat="x in incidents | orderBy: 'created_at':true | limitTo: 8">
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
-          <td>{{ x.reference_num}}</td>
-          <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
-          <td>{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
-          <td>{{ getassigneename(x.assigned_user.full_name)}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS' }">{{ x.reference_num}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS' }">{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS' }">{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS' }">{{ getassigneename(x.assigned_user.full_name)}}</td>
           <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
@@ -87,19 +87,19 @@
         <table class="table">
 
           <tr>
-            <td style="width:25%" ng-class="{'success':togglJP.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}">
               <b>James:</b> {{togglJP.Description}}
             </td>
-            <td style="width:25%" ng-class="{'success':togglSL.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}">
               <b>Steven:</b> {{togglSL.Description}}
             </td>
             <!-- <td style="width:25%" ng-class="{'success':togglLJ.IsCurrent == 1}">
               <b>Lee:</b> {{togglLJ.Description}}
             </td> -->
-            <td style="width:25%" ng-class="{'success':togglSH.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}">
               <b>Sam:</b> {{togglSH.Description}}
             </td>
-            <td style="width:25%" ng-class="{'success':togglBK.IsCurrent == 1}">
+            <td style="width:25%" ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}">
               <b>Brandon:</b> {{togglBK.Description}}
             </td>
           </tr>

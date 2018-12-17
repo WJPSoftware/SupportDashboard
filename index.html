@@ -13,22 +13,17 @@
 <head>
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
-
+  <script src="js/status.js"></script>
   <script src="Scripts/angular.min.js"></script>
   <script src="App/app.js"></script>
   <script src="App/functions.js"></script>
   <script src="js/panel.js"></script>
-  <script src="js/led-control.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-
-  <script>
-    setControllerLocation();
-  </script>
 </head>
 
 <body ng-controller="DashboardController">
-  <div id='application' style="display: none;">dash</div>
+
   <div class="row">
     <div class="col-md-7">
 
@@ -47,10 +42,10 @@
         </tr>
         <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: incidentlimit">
           <td ng-class="{'danger':x.priority.description=='Urgent','warning':x.priority.description=='V. Important','success':x.priority.description=='Important','info':x.priority.description=='Inconvenient','active':x.priority.description=='Cosmetics'}">&nbsp;</td>
-          <td>{{ x.reference_num}}</td>
-          <td>{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
-          <td>{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
-          <td>{{ getassigneename(x.assigned_user.full_name)}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ x.reference_num}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ x.title | limitTo: 30 }}{{x.title.length > 30 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ getassigneename(x.assigned_user.full_name)}}</td>
           <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
@@ -146,44 +141,44 @@
           <table class="table">
 
             <tr>
-              <td ng-class="{'success':togglJP.IsCurrent == 1}" colspan="2">
+              <td ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}" colspan="2">
                 <b>James:</b>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}" class="noBorder">
                 Desc: <span class="lightText">{{togglJP.Description}}</span>
               </td>
-              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}" class="noBorder">
                 Task: <span class="lightText">{{togglJP.Task}}</span>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}" class="noBorder">
                 Project: <span class="lightText">{{togglJP.Project}}</span>
               </td>
-              <td ng-class="{'success':togglJP.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}" class="noBorder">
                 Time: <span class="lightText">{{togglJP.Duration}}</span>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglSL.IsCurrent == 1}" colspan="2">
+              <td ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}" colspan="2">
                 <b>Steven:</b>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}" class="noBorder">
                 Desc: <span class="lightText">{{togglSL.Description}}</span>
               </td>
-              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}" class="noBorder">
                 Task: <span class="lightText">{{togglSL.Task}}</span>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}" class="noBorder">
                 Project: <span class="lightText">{{togglSL.Project}}</span>
               </td>
-              <td ng-class="{'success':togglSL.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}" class="noBorder">
                 Time: <span class="lightText">{{togglSL.Duration}}</span>
               </td>
             </tr>
@@ -209,46 +204,45 @@
               </td>
             </tr> -->
             <tr>
-              <td ng-class="{'success':togglSH.IsCurrent == 1}" colspan="2">
+              <td ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}" colspan="2">
                 <b>Sam:</b>
               </td>
             </tr>
             <tr>
-
-              <td ng-class="{'success':togglSH.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}" class="noBorder">
                 Desc: <span class="lightText">{{togglSH.Description}}</span>
               </td>
-              <td ng-class="{'success':togglSH.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}" class="noBorder">
                 Task: <span class="lightText">{{togglSH.Task}}</span>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglSH.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}" class="noBorder">
                 Project: <span class="lightText">{{togglSH.Project}}</span>
               </td>
-              <td ng-class="{'success':togglSH.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}" class="noBorder">
                 Time: <span class="lightText">{{togglSH.Duration}}</span>
               </td>
             </tr>
             <!-- Brandon -->
             <tr>
-              <td ng-class="{'success':togglBK.IsCurrent == 1}" colspan="2">
+              <td ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}" colspan="2">
                 <b>Brandon:</b>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglBK.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}" class="noBorder">
                 Desc: <span class="lightText">{{togglBK.Description}}</span>
               </td>
-              <td ng-class="{'success':togglBK.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}" class="noBorder">
                 Task: <span class="lightText">{{togglBK.Task}}</span>
               </td>
             </tr>
             <tr>
-              <td ng-class="{'success':togglBK.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}" class="noBorder">
                 Project: <span class="lightText">{{togglBK.Project}}</span>
               </td>
-              <td ng-class="{'success':togglBK.IsCurrent == 1}" class="noBorder">
+              <td ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}" class="noBorder">
                 Time: <span class="lightText">{{togglBK.Duration}}</span>
               </td>
             </tr>
@@ -266,7 +260,6 @@
                 Client
               </th>
             </thead>
-
               <tr ng-repeat="p in projects | orderBy:'TimeLeft' | limitTo: 1" ng-class="{ 'bg-danger': p.TimeLeft < 1 }">
                 <td nowrap>{{p.Name}}</td>
                 <td nowrap>{{p.TimeLeft}}</td>

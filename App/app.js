@@ -38,28 +38,28 @@ angular.module('dashboard', [])
                     break;
                 }
 
-                SignIncidentController(3,priority);
+                //SignIncidentController(3,priority);
               }
             }
 
             var time = new Date();
 
-            if(TurnOffCheck(time) == true){
-              SignController('dim');
-              signPowered = false;
-            }else if(TurnOnCheck(time)){
-              SignController('startup');
-              signPowered = true;
-            }
+            // if(TurnOffCheck(time) == true){
+            //   SignController('dim');
+            //   signPowered = false;
+            // }else if(TurnOnCheck(time)){
+            //   SignController('startup');
+            //   signPowered = true;
+            // }
 
             $scope.incidents = response.data;
 
             incidentRunCounter++;
 
 
-            if ($scope.incidents.length <= 10) {
+            if ($scope.incidents.length <= 20) {
               $scope.incidentstatus = "success";
-            } else if (10 < $scope.incidents.length && $scope.incidents.length <= 20) {
+            } else if (20 < $scope.incidents.length && $scope.incidents.length <= 25) {
               $scope.incidentstatus = "warning";
             } else {
               $scope.incidentstatus = "danger";
@@ -283,9 +283,9 @@ angular.module('dashboard', [])
 
             $scope.changes = response.data;
 
-            if ($scope.changes.length <= 20) {
+            if ($scope.changes.length <= 100) {
               $scope.changesstatus = "success";
-            } else if (20 < $scope.changes.length && $scope.changes.length <= 35) {
+            } else if (100 < $scope.changes.length && $scope.changes.length <= 135) {
               $scope.changesstatus = "warning";
             } else {
               $scope.changesstatus = "danger";
@@ -445,6 +445,8 @@ angular.module('dashboard', [])
           return 'BK';
         case 'WJPS Staff':
           return 'WJPS';
+        case 'WJPS Support Staff':
+          return 'WJPS';
         case 'Stockton Quality Control Laboratory':
           return 'SQCL';
         case 'SQC Group':
@@ -459,28 +461,28 @@ angular.module('dashboard', [])
   })
 
 
-  function TurnOffCheck(time){
-    if(time.getDay() == 5){
-      if((time.getHours() >= 16 || time.getHours() < 8) && signPowered  ){
-        console.log('Friday after 4');
-        return true;
-      }
-    }
-    if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
-      console.log('Week day after 5');
-      return true;
-    }    
-    return false;
-  }
+  // function TurnOffCheck(time){
+  //   if(time.getDay() == 5){
+  //     if((time.getHours() >= 16 || time.getHours() < 8) && signPowered  ){
+  //       console.log('Friday after 4');
+  //       return true;
+  //     }
+  //   }
+  //   if((time.getHours() >= 17 || time.getHours() < 8) && signPowered){
+  //     console.log('Week day after 5');
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
-  function TurnOnCheck(time){
-    if(time.getDay() > 0 && time.getDay < 6){
-      if((time.getHours() >= 8 && time.getMinutes() >= 55 && time.getHours() < 12) && !signPowered){
-        return true;
-      }
-      return false;
-    }else{
-      return false;
-    }
-    
-  }
+  // function TurnOnCheck(time){
+  //   if(time.getDay() > 0 && time.getDay < 6){
+  //     if((time.getHours() >= 8 && time.getMinutes() >= 55 && time.getHours() < 12) && !signPowered){
+  //       return true;
+  //     }
+  //     return false;
+  //   }else{
+  //     return false;
+  //   }
+  //
+  // }
