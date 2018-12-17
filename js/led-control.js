@@ -32,8 +32,36 @@ function SignController(mode) {
 			});
 			alert('Please allow 30 seconds for the raspberry pi to shut down before removing its power!');
 			break;
+		case 'bwloop':
+			var string = 'http://'+piAddress+'?type=outerloopbw';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
 		case 'random':
 			var string = 'http://'+piAddress+'?type=outerloop';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'randomR':
+			var string = 'http://'+piAddress+'?type=outerloopr';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'randomG':
+			var string = 'http://'+piAddress+'?type=outerloopg';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'randomB':
+			var string = 'http://'+piAddress+'?type=outerloopb';
 			$.ajax({
 				url: string,
 			});
@@ -48,6 +76,27 @@ function SignController(mode) {
 			break;
 		case 'xmas':
 			var string = 'http://'+piAddress+'?type=xmas';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'offall':
+			var string = 'http://'+piAddress+'?type=fadeall';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'offouter':
+			var string = 'http://'+piAddress+'?type=fadeouter';
+			$.ajax({
+				url: string,
+			});
+			ledSaveLastCommand(string);
+			break;
+		case 'offinner':
+			var string = 'http://'+piAddress+'?type=fadeinner';
 			$.ajax({
 				url: string,
 			});
@@ -233,6 +282,9 @@ function ledSaveLastCommand(string,mode = 0){
 		case 0:
 			$.ajax({
 				url: ledcontrolUrl + '?type=update&name=Last_Command&val='+string,
+				success: function(data){
+					console.log(data);
+				}
 			});
 			break;
 		case 1://This saves the outer fill area

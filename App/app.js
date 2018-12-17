@@ -38,7 +38,12 @@ angular.module('dashboard', [])
                     break;
                 }
 
-                //SignIncidentController(3,priority);
+                try{
+                  SignIncidentController(3,priority);
+                }catch(err){
+                  console.error(err.message);
+                }
+                
               }
             }
 
