@@ -82,25 +82,28 @@
     <div class="col-md-12">
       <div id="toggleablearea_toggl" style="">
 
-        <h1 style="margin-left:15px; margin-top:-34px;"><small><span>Toggl </span></small></h1>
+        <h1 style="margin-left:15px; margin-top:-34px;"><small><span>Clockify</span></small></h1>
 
         <table class="table">
 
           <tr>
-            <td style="width:25%" ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}">
+            <td style="width:20%" ng-class="{'success':togglJP.IsCurrent == 1, 'idle':togglJP.IsCurrent == 0}">
               <b>James:</b> {{togglJP.Description}}
             </td>
-            <td style="width:25%" ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}">
+            <td style="width:20%" ng-class="{'success':togglSL.IsCurrent == 1, 'idle':togglSL.IsCurrent == 0}">
               <b>Steven:</b> {{togglSL.Description}}
             </td>
             <!-- <td style="width:25%" ng-class="{'success':togglLJ.IsCurrent == 1}">
               <b>Lee:</b> {{togglLJ.Description}}
             </td> -->
-            <td style="width:25%" ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}">
+            <td style="width:20%" ng-class="{'success':togglSH.IsCurrent == 1, 'idle':togglSH.IsCurrent == 0}">
               <b>Sam:</b> {{togglSH.Description}}
             </td>
-            <td style="width:25%" ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}">
+            <td style="width:20%" ng-class="{'success':togglBK.IsCurrent == 1, 'idle':togglBK.IsCurrent == 0}">
               <b>Brandon:</b> {{togglBK.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'success':togglAT.IsCurrent == 1, 'idle':togglAT.IsCurrent == 0}">
+              <b>Alex:</b> {{togglAT.Description}}
             </td>
           </tr>
 

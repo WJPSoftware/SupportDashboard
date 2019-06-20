@@ -1,4 +1,4 @@
-const piAddress = '192.168.1.240';
+const piAddress = '192.168.1.72';
 
 switch ($('#application').html()) {
 	case 'hub':

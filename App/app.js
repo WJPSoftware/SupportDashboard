@@ -121,7 +121,7 @@ angular.module('dashboard', [])
     }
 
     $scope.activities = function() {
-      $http.get("Data/togglController.php")
+      $http.get("Data/clockifyController.php") //togglController.php
         .then(function(response) {
 
           if (response.data) {
@@ -158,25 +158,28 @@ angular.module('dashboard', [])
     }
 
     $scope.activitiesSimple = function() {
-      $http.get("Data/togglController.php")
+      $http.get("Data/clockifyController.php") //togglController.php
         .then(function(response) {
 
           if (response.data) {
 
             $scope.togglSL = $.grep(response.data, function(e) {
-              return e.Username == "Steven Lee"
+              return e.Username == "Steven"
             })[0];
             $scope.togglJP = $.grep(response.data, function(e) {
-              return e.Username == "James Proctor"
+              return e.Username == "James"
             })[0];
             // $scope.togglLJ = $.grep(response.data, function(e) {
             //   return e.Username == "Lee Jones"
             // })[0];
             $scope.togglSH = $.grep(response.data, function(e) {
-              return e.Username == "Sam Horner"
+              return e.Username == "Sam"
             })[0];
             $scope.togglBK = $.grep(response.data, function(e) {
-              return e.Username == "Brandon Kyaw"
+              return e.Username == "Brandon"
+            })[0];
+            $scope.togglAT = $.grep(response.data, function(e) {
+              return e.Username == "Alex"
             })[0];
 
           } else {
@@ -441,8 +444,8 @@ angular.module('dashboard', [])
           return 'SL';
         case 'Jo Hannington':
           return 'JH';
-        case 'Lee Jones':
-          return 'LJ';
+        case 'Alex Tuersley':
+          return 'AT';
         case 'Sam Horner':
           return 'SH';
         case 'Brandon Kyaw':
