@@ -1,0 +1,115 @@
+:root {
+  --wjps-color: #000;
+  --primary-color: #fc5c65;
+  --secondary-color: #4b7bec;
+  --success-color: #009432;
+  --warning-color: #f7b731;
+  --danger-color: #EA2027;
+  --info-color: #45aaf2;
+  --text-color: #fff;
+  --text-color-soft: #aaa;
+}
+
+html, body{
+  font-family: 'SF Display', sans-serif;
+}
+
+body{
+  background-color: var(--wjps-color);
+  color: var(--text-color)!important;
+}
+
+h1{
+  color: var(--text-color-soft);
+}
+
+h1 > small{
+  font-size: 28px;
+  font-weight: 200;
+}
+
+.box{
+
+}
+
+.table{
+  color: var(--text-color);
+}
+
+.table .table{
+  background-color: transparent!important;
+}
+
+.circle{
+  border-radius: 200px;
+  text-align: center;
+  width: 100%;
+  padding-top: 100%;
+  vertical-align: middle;
+  margin: 5px;
+  flex: none;
+  position: relative;
+}
+
+.circle > h2{
+  font-size: 106px;
+  font-weight: 100!Important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  vertical-align: middle;
+  margin-top: calc(50% - 90px);
+}
+.circle > span{
+  font-size: 26px;
+  font-weight: 200!Important;
+  position: absolute;
+  top: 126px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  vertical-align: middle;
+  margin-top: calc(50% - 90px);
+}
+
+.wjps-success{
+  background-color: var(--success-color);
+  box-sizing: border-box;
+  color: white;
+}
+
+.wjps-warning{
+  background-color: var(--warning-color);
+  box-sizing: border-box;
+  color: white;
+}
+
+.wjps-danger{
+  background-color: var(--danger-color);
+  box-sizing: border-box;
+  color: white;
+}
+
+.wjps-active{
+  background-color: var(--primary-color);
+  box-sizing: border-box;
+  color: white;
+}
+
+.WJPS{
+  background-color: var(--secondary-color);
+}
+
+.wjps-main{
+  width: 100%;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+}

@@ -19,7 +19,7 @@ angular.module('dashboard', [])
       $http.get("Data/incidents.php")
         .then(function(response) {
 
-          if (response.data != 'null') {
+          if (response.data != 'null' && response.data != '') {
             if(signPowered && incidentRunCounter > 0 && $scope.incidents.toString() != response.data.toString()){
 
               if($scope.incidents.length < response.data.length){
@@ -42,7 +42,7 @@ angular.module('dashboard', [])
                 }catch(err){
                   console.error(err.message);
                 }
-                
+
               }
             }
 
@@ -88,6 +88,7 @@ angular.module('dashboard', [])
             $scope.incidentcounter = 1;
             console.error("Incidents Failed to Load At:" + Date.now());
 
+            $scope.incidents();
           }
         })
     };
@@ -240,12 +241,6 @@ angular.module('dashboard', [])
             return;
           });
 
-          if (i == 0) {
-            $scope.allserverstatus = "success";
-          } else {
-            $scope.allserverstatus = "danger";
-          }
-
         })
 
     }
@@ -366,9 +361,9 @@ angular.module('dashboard', [])
       var thisweek = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
 
       if (dateObj <= today) {
-        return 'danger';
+        return 'bg-danger';
       } else if (dateObj <= thisweek) {
-        return 'warning';
+        return 'bg-warning';
       }
 
     }
@@ -491,5 +486,5 @@ angular.module('dashboard', [])
     }else{
       return false;
     }
-  
+
   }

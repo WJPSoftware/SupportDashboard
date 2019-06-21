@@ -29,14 +29,9 @@
 		$Users[6] = "1305880241538695169"; //LJ
 		$Users[7] = "1443937850880745479"; //SH
 		$Users[8] = "1478822331303378945"; //BK
-
-		//echo("Load");
+		$Users[9] = "1570874006723977338"; //AT
 
 		foreach ($Users as $User) {
-
-			//($User->{'id'});
-
-			//echo("Help");
 
 			$ch = curl_init();
 

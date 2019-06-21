@@ -1,0 +1,184 @@
+<!-- *********************************************** -->
+<!-- Support Dashboard Index                         -->
+<!-- Original Developer: WJP Software Limited        -->
+<!-- http://www.wjps.co.uk                           -->
+<!-- Open Source Code - Please modify for your       -->
+<!-- requirements and needs.                         -->
+<!-- *********************************************** -->
+
+
+<!doctype html>
+<html ng-app="dashboard">
+
+<head>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/led-control.js"></script>
+  <script src="js/status.js"></script>
+  <script src="Scripts/angular.min.js"></script>
+  <script src="App/app.js"></script>
+  <script src="App/functions.js"></script>
+  <script src="js/panel.js"></script>
+  <link href="https://sf.abarba.me/font.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/stylev2.css" rel="stylesheet">
+</head>
+
+<body ng-controller="DashboardController">
+
+  <div class="row wjps-main">
+    <div class="col-md-10">
+
+      <!--Incidents -->
+
+      <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8 </span>Incidents</small></h1>
+      <table class="table table-borderless">
+        <tr>
+          <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
+          <th style="width:5%">ID</th>
+          <th>Title</th>
+          <th style="width:9%">Service</th>
+          <th style="width:9%">Assigned</th>
+          <th style="width:9%">Created</th>
+          <th style="width:9%">Due Date</th>
+        </tr>
+        <tr ng-repeat="x in incidents | orderBy: 'due_date' | limitTo: incidentlimit">
+          <td ng-class="{'wjps-danger':x.priority.description=='Urgent','wjps-warning':x.priority.description=='V. Important','wjps-success':x.priority.description=='Important','wjps-info':x.priority.description=='Inconvenient','wjps-active':x.priority.description=='Cosmetics'}">&nbsp;</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ x.reference_num}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ x.title | limitTo: 60 }}{{x.title.length > 60 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ getservicename(x.service.name) | limitTo: 7}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
+          <td ng-class="{ 'WJPS' : getassigneename(x.assigned_user.full_name) == 'WJPS'}">{{ getassigneename(x.assigned_user.full_name)}}</td>
+          <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
+          <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </table>
+      <div id="trello_area" style="">
+
+        <h1 style="margin-left:15px;"><small><span>Trello</span></small></h1>
+
+        <table class="table table-borderless">
+          <thead>
+            <th></th>
+            <th>James</th>
+            <th>Steven</th>
+            <th>Sam</th>
+            <th>Brandon</th>
+            <th>Alex</th>
+          </thead>
+          <tbody>
+            <tr>
+              <th>MRS 2.5</th>
+              <td>4 Tasks</td>
+              <td>2 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+            </tr>
+            <tr>
+              <th>MRS 3</th>
+              <td>3 Tasks</td>
+              <td>7 Tasks</td>
+              <td>4 Tasks</td>
+              <td>10 Tasks</td>
+              <td>9 Tasks</td>
+            </tr>
+            <tr>
+              <th>MRS AF</th>
+              <td>6 Tasks</td>
+              <td>0 Tasks</td>
+              <td>9 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+            </tr>
+            <tr>
+              <th>EWT</th>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+              <td>0 Tasks</td>
+            </tr>
+            <tr>
+              <th>WCS</th>
+              <td>0 Tasks</td>
+              <td>14 Tasks</td>
+              <td>12 Tasks</td>
+              <td>6 Tasks</td>
+              <td>13 Tasks</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div id="toggleablearea_toggl" style="">
+
+        <h1 style="margin-left:15px;"><small><span>Clockify</span></small></h1>
+
+        <table class="table table-borderless">
+
+          <tr>
+            <td style="width:20%" ng-class="{'wjps-success':togglJP.IsCurrent == 1, 'wjps-danger':togglJP.IsCurrent == 0}">
+              <b>James:</b> {{togglJP.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglSL.IsCurrent == 1, 'wjps-danger':togglSL.IsCurrent == 0}">
+              <b>Steven:</b> {{togglSL.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglSH.IsCurrent == 1, 'wjps-danger':togglSH.IsCurrent == 0}">
+              <b>Sam:</b> {{togglSH.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglBK.IsCurrent == 1, 'wjps-danger':togglBK.IsCurrent == 0}">
+              <b>Brandon:</b> {{togglBK.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglAT.IsCurrent == 1, 'wjps-danger':togglAT.IsCurrent == 0}">
+              <b>Alex:</b> {{togglAT.Description}}
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="row" style="text-align: center;">
+
+        <!--Status Boxes -->
+
+        <div class="col-md-12 circle" ng-class="{ 'wjps-danger':incidentstatus==='danger' , 'wjps-warning':incidentstatus=='warning' , 'wjps-success':incidentstatus==='success' }">
+          <h2>{{incidents.length}}</h2>
+          <span>Incidents</span>
+        </div>
+        <div class="col-md-12 circle" ng-class="{ 'wjps-danger':contactstatus==='danger' , 'wjps-warning':contactstatus=='warning' , 'wjps-success':contactstatus==='success' }">
+          <h2>{{contacts.Count}}</h2>
+          <span>Contacts</span>
+        </div>
+        <div class="col-md-12 box">
+          <!--Server Status In-House -->
+
+          <h2>Servers</h2>
+
+          <table class="table table-borderless">
+
+            <tr class="svrstatus" ng-repeat="s in serverstatus | limitTo: 3000">
+              <td ng-class="{ 'wjps-success':s.Status==='TRUE' , 'wjps-danger':s.Status==='FALSE' }"><b>{{s.Label}}</b></td>
+            </tr>
+          </table>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--Footer -->
+
+  <footer>
+    <div id='foot'>
+      <span>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span><span style='right: 5%; position: absolute;'>Last Updated: {{footerdate | date: 'EEEE d MMMM y HH:mm'}} <span class='error glyphicon {{connectionerror}}'> </span></span>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
