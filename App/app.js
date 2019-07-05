@@ -157,9 +157,31 @@ angular.module('dashboard', [])
           }
         })
     }
-
+    $scope.trello = function() {
+      $http.get("Data/trelloController.php") //trelloController.php
+        .then(function(response) {
+          $scope.trelloMRS2 = $.grep(response.data, function(e){
+            return e.board == "MRS 2.5"
+          })[0];
+          $scope.trelloMRS3 = $.grep(response.data, function(e){
+            return e.board == "MRS 3"
+          })[0];
+          $scope.trelloMRSAF = $.grep(response.data, function(e){
+            return e.board == "MRS AF"
+            
+          })[0];
+          $scope.trelloEWT = $.grep(response.data, function(e){
+            return e.board == "EWT"
+            
+          })[0];
+          $scope.trelloWCS = $.grep(response.data, function(e){
+            return e.board == "WCS"
+            
+          })[0];
+        })
+    }
     $scope.activitiesSimple = function() {
-      $http.get("Data/clockifyController.php") //togglController.php
+      $http.get("Data/clockifyController.php") //clockifyController.php
         .then(function(response) {
 
           if (response.data) {
@@ -324,6 +346,7 @@ angular.module('dashboard', [])
     $scope.tasks();
     $scope.activities();
 		$scope.projects();
+    $scope.trello();
     $scope.activitiesSimple();
     $scope.contacts();
     $scope.changes();
@@ -344,6 +367,7 @@ angular.module('dashboard', [])
     $interval($scope.tasks, delay1);
     $interval($scope.contacts, delay1);
     $interval($scope.changes, delay1);
+    $interval($scope.trello, delay2);
     $interval($scope.activities, delay1);
 		$interval($scope.projects, delay1);
     $interval($scope.activitiesSimple, delay1);
