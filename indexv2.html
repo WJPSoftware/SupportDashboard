@@ -33,9 +33,9 @@
       <!--Incidents -->
 
       <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8 </span>Incidents</small></h1>
-      <table class="table table-borderless">
+      <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
         <tr>
-          <th style='text-align:center;width:40px'><span class="glyphicon glyphicon-warning-sign"></span></th>
+          <th style='text-align:center;width:40px margin-top:0px; margin-bottom:0px;'><span class="glyphicon glyphicon-warning-sign"></span></th>
           <th style="width:5%">ID</th>
           <th>Title</th>
           <th style="width:9%">Service</th>
@@ -53,11 +53,11 @@
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
       </table>
-      <div id="trello_area" style="">
+      <div id="trello_area" style="margin-top:0px;">
 
-        <h1 style="margin-left:15px;"><small><span>Trello</span></small></h1>
+        <h1 style="margin-left:15px; margin-top:0px; margin-top:0px; margin-bottom:0px;"><small><span>Trello</span></small></h1>
 
-        <table class="table table-borderless">
+        <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
           <thead>
             <th></th>
             <th>James</th>
@@ -113,9 +113,9 @@
       </div>
       <div id="toggleablearea_toggl" style="">
 
-        <h1 style="margin-left:15px;"><small><span>Clockify</span></small></h1>
+        <h1 style="margin-left:15px; margin-top:0px; margin-bottom:0px;"><small><span>Clockify</span></small></h1>
 
-        <table class="table table-borderless">
+        <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
 
           <tr>
             <td style="width:20%" ng-class="{'wjps-success':togglJP.IsCurrent == 1, 'wjps-danger':togglJP.IsCurrent == 0}">
