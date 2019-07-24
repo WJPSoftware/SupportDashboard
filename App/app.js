@@ -14,6 +14,36 @@ angular.module('dashboard', [])
 
   .controller('DashboardController', function($scope, $http, $interval) {
 
+
+    $scope.tickets = function() {
+      $http.get("Data/freshDesk.php")
+      .then(function(response){
+        if(response.data != null && response.data != ''){
+          $scope.tickets = response.data;
+          $scope.ticketlimit = 5;
+          if($scope.tickets.priority == 1){
+            $scope.priority = 'low';
+          }
+          if($scope.tickets.priority == 2){
+             $scope.priority = 'medium';
+          }
+          if($scope.tickets.priority == 3){
+             $scope.priority = 'high';
+          }
+          if($scope.tickets.priority == 4){
+             $scope.priority == 'urgent';
+          }
+
+        }
+        else {
+
+            $scope.ticketcounter = 1;
+            console.error("Tickets Failed to Load At:" + Date.now());
+
+            $scope.tickets();
+          }
+      })
+    };
     /* connects to and fills in data from /Data/incidents.php */
     $scope.incidents = function() {
       $http.get("Data/incidents.php")
@@ -73,13 +103,13 @@ angular.module('dashboard', [])
 
             $scope.connectionerror = "";
 
-            if ($scope.incidents.length < 8) {
+            /*if ($scope.incidents.length < 8) {
               $scope.changelimit = 16 - $scope.incidents.length;
               $scope.incidentlimit = $scope.incidents.length;
             } else {
-              $scope.changelimit = 8;
-              $scope.incidentlimit = 8;
-            }
+              $scope.changelimit = 8;*/
+              $scope.incidentlimit = 10;
+            //}
 
             $scope.incidentcounter = 0;
 
@@ -343,6 +373,7 @@ angular.module('dashboard', [])
 
     /* Load page */
     $scope.incidents();
+    $scope.tickets();
     $scope.tasks();
     $scope.activities();
 		$scope.projects();
@@ -358,12 +389,14 @@ angular.module('dashboard', [])
     $scope.taskscounter = 0;
     $scope.contactcounter = 0;
     $scope.changescounter = 0;
+    $scope.ticketscounter = 0;
 
     var delay1 = 60000;
     var delay2 = 250000;
     var delay3 = 30000;
 
     $interval($scope.incidents, delay1);
+    $interval($scope.tickets, delay1);
     $interval($scope.tasks, delay1);
     $interval($scope.contacts, delay1);
     $interval($scope.changes, delay1);

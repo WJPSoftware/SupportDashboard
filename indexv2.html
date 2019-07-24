@@ -14,7 +14,7 @@
   <script src="js/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/led-control.js"></script>
-  <script src="js/status.js"></script>
+  <!--<script src="js/status.js"></script> -->
   <script src="Scripts/angular.min.js"></script>
   <script src="App/app.js"></script>
   <script src="App/functions.js"></script>
@@ -32,7 +32,7 @@
 
       <!--Incidents -->
 
-      <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit >= 8">Top 8 </span>Incidents</small></h1>
+     <h1 style="margin-left:15px; margin-top:0px;"><small ng-class="{'danger-text':incidentcounter==1,'success-text':incidentcounter==0}"><span ng-if="incidentlimit + ticketlimit >= 15">Top 15 </span>Incidents</small></h1>
       <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
         <tr>
           <th style='text-align:center;width:40px margin-top:0px; margin-bottom:0px;'><span class="glyphicon glyphicon-warning-sign"></span></th>
@@ -52,8 +52,18 @@
           <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
           <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
         </tr>
+        <tr ng-repeat="x in tickets | orderBy: 'due_date' | limitTo: ticketlimit">
+          <td ng-class="{'wjps-danger':x.priority=='urgent','wjps-warning':x.priority=='high','wjps-success':x.priority=='medium','wjps-info':x.priority=='low'}">&nbsp;</td>
+          <td ng-class="">{{x.reference_num}}</td>
+          <td ng-class="">{{x.title | limitTo: 60 }}{{x.title.length > 60 ? '...' : ''}}</td>
+          <td ng-class="">{{x.service | limitTo: 8}}{{getservicename(x.service.name).length > 7 ? '...' : ''}}</td>
+          <td ng-class="">{{x.assigned_user}}</td>
+          <td ng-class="getnewitem(x.created_at)">{{x.created_at | date:'dd/MM/yyyy'}}</td>
+          <td ng-class="getdateclass(x.due_date)">{{x.due_date | date:'dd/MM/yyyy'}}</td>
+        </tr>
       </table>
-      <div id="trello_area" style="margin-top:0px;">
+
+     <!-- <div id="trello_area" style="margin-top:0px;">
         <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
           <thead>
 
@@ -108,33 +118,8 @@
           </tbody>
         </table>
 
-      </div>
-      <div id="toggleablearea_toggl" style="">
-
-        <h1 style="margin-left:15px; margin-top:0px; margin-bottom:0px;"><small><span>Clockify</span></small></h1>
-
-        <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
-
-          <tr>
-            <td style="width:20%" ng-class="{'wjps-success':togglJP.IsCurrent == 1, 'wjps-danger':togglJP.IsCurrent == 0}">
-              <b>James:</b> {{togglJP.Description}}
-            </td>
-            <td style="width:20%" ng-class="{'wjps-success':togglSL.IsCurrent == 1, 'wjps-danger':togglSL.IsCurrent == 0}">
-              <b>Steven:</b> {{togglSL.Description}}
-            </td>
-            <td style="width:20%" ng-class="{'wjps-success':togglSH.IsCurrent == 1, 'wjps-danger':togglSH.IsCurrent == 0}">
-              <b>Sam:</b> {{togglSH.Description}}
-            </td>
-            <td style="width:20%" ng-class="{'wjps-success':togglBK.IsCurrent == 1, 'wjps-danger':togglBK.IsCurrent == 0}">
-              <b>Brandon:</b> {{togglBK.Description}}
-            </td>
-            <td style="width:20%" ng-class="{'wjps-success':togglAT.IsCurrent == 1, 'wjps-danger':togglAT.IsCurrent == 0}">
-              <b>Alex:</b> {{togglAT.Description}}
-            </td>
-          </tr>
-
-        </table>
-      </div>
+      </div>-->
+      
     </div>
     <div class="col-md-2">
       <div class="row" style="text-align: center;">
@@ -172,6 +157,31 @@
   <!--Footer -->
 
   <footer>
+    <div id="toggleablearea_toggl" style="">
+
+        <h1 style="margin-top:0px; margin-bottom:0px;"><small><span>Clockify</span></small></h1>
+
+        <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
+
+          <tr>
+            <td style="width:20%" ng-class="{'wjps-success':togglJP.IsCurrent == 1, 'wjps-danger':togglJP.IsCurrent == 0}">
+              <b>James:</b> {{togglJP.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglSL.IsCurrent == 1, 'wjps-danger':togglSL.IsCurrent == 0}">
+              <b>Steven:</b> {{togglSL.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglSH.IsCurrent == 1, 'wjps-danger':togglSH.IsCurrent == 0}">
+              <b>Sam:</b> {{togglSH.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglBK.IsCurrent == 1, 'wjps-danger':togglBK.IsCurrent == 0}">
+              <b>Brandon:</b> {{togglBK.Description}}
+            </td>
+            <td style="width:20%" ng-class="{'wjps-success':togglAT.IsCurrent == 1, 'wjps-danger':togglAT.IsCurrent == 0}">
+              <b>Alex:</b> {{togglAT.Description}}
+            </td>
+          </tr>
+        </table>
+    </div>
     <div id='foot'>
       <span>&copy; WJP Software Limited {{footerdate | date: 'y'}}</span><span style='right: 5%; position: absolute;'>Last Updated: {{footerdate | date: 'EEEE d MMMM y HH:mm'}} <span class='error glyphicon {{connectionerror}}'> </span></span>
     </div>
