@@ -49,6 +49,8 @@ angular.module('dashboard', [])
       $http.get("Data/incidents.php")
         .then(function(response) {
 
+          console.log(response);
+
           if (response.data != 'null' && response.data != '') {
             if(signPowered && incidentRunCounter > 0 && $scope.incidents.toString() != response.data.toString()){
 
@@ -410,8 +412,22 @@ angular.module('dashboard', [])
 
     /* Sets date css */
     $scope.getdateclass = function(dateVal) {
+      if(dateVal.includes("/")){
+        var dateParts = dateVal.split("/");
+        console.log(dateParts[2]);
+        if(dateParts[2].length < 4){
+          dateParts[2] = "20" + dateParts[2];
+          var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+        }
+        else{
+        var dateObj = new Date(dateVal);
+        }
+      }
+    
+      else{
+        var dateObj = new Date(dateVal);
+      }
 
-      var dateObj = new Date(dateVal);
 
       var today = new Date(Date.now());
 
