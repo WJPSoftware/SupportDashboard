@@ -14,36 +14,6 @@ angular.module('dashboard', [])
 
   .controller('DashboardController', function($scope, $http, $interval) {
 
-
-    $scope.tickets = function() {
-      $http.get("Data/freshDesk.php")
-      .then(function(response){
-        if(response.data != null && response.data != ''){
-          $scope.tickets = response.data;
-          $scope.ticketlimit = 5;
-          if($scope.tickets.priority == 1){
-            $scope.priority = 'low';
-          }
-          if($scope.tickets.priority == 2){
-             $scope.priority = 'medium';
-          }
-          if($scope.tickets.priority == 3){
-             $scope.priority = 'high';
-          }
-          if($scope.tickets.priority == 4){
-             $scope.priority == 'urgent';
-          }
-
-        }
-        else {
-
-            $scope.ticketcounter = 1;
-            console.error("Tickets Failed to Load At:" + Date.now());
-
-            $scope.tickets();
-          }
-      })
-    };
     /* connects to and fills in data from /Data/incidents.php */
     $scope.incidents = function() {
       $http.get("Data/incidents.php")
@@ -124,6 +94,42 @@ angular.module('dashboard', [])
           }
         })
     };
+    $scope.tickets = function() {
+      $http.get("Data/freshDesk.php")
+      .then(function(response){
+        if(response.data != null && response.data != ''){
+          $scope.tickets = response.data;
+          if($scope.incidents.length < 5 ){
+            $scope.ticketlimit = 10;
+          }
+          else{
+            $scope.ticketlimit = 5;
+          }
+
+          if($scope.tickets.priority == 1){
+            $scope.priority = 'low';
+          }
+          if($scope.tickets.priority == 2){
+             $scope.priority = 'medium';
+          }
+          if($scope.tickets.priority == 3){
+             $scope.priority = 'high';
+          }
+          if($scope.tickets.priority == 4){
+             $scope.priority == 'urgent';
+          }
+
+        }
+        else {
+
+            $scope.ticketcounter = 1;
+            console.error("Tickets Failed to Load At:" + Date.now());
+
+            $scope.tickets();
+          }
+      })
+    };
+    
 
     /* connects to and fills in data from /Data/tasks.php */
     $scope.tasks = function() {
