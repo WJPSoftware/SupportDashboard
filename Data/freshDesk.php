@@ -75,7 +75,7 @@ else {
     if($responderID == NULL){
       $responder = "WJPS";
     }
-    if($value['status'] == 2 || $value['status'] == 3 || $value['status'] == 4){
+    if($value['status'] == 2 || $value['status'] == 3){
       $InnerArray = array("assigned_user" => $responder, "title" => $subject, "service" => $type, "created_at" => $createdAt, "due_date" => $dueBy, "reference_num" => $id, "priority" => $priority);
       array_push($FullArray, $InnerArray);
     }

@@ -127,7 +127,7 @@
         <!--Status Boxes -->
 
         <div class="col-md-12 circle" ng-class="{ 'wjps-danger':incidentstatus==='danger' , 'wjps-warning':incidentstatus=='warning' , 'wjps-success':incidentstatus==='success' }">
-          <h2>{{incidents.length}}</h2>
+          <h2>{{incidents.length + tickets.length}}</h2>
           <span>Incidents</span>
         </div>
         <div class="col-md-12 circle" ng-class="{ 'wjps-danger':contactstatus==='danger' , 'wjps-warning':contactstatus=='warning' , 'wjps-success':contactstatus==='success' }">
@@ -159,7 +159,7 @@
   <footer>
     <div id="toggleablearea_toggl" style="">
 
-        <h1 style="margin-top:0px; margin-bottom:0px;"><small><span>Clockify</span></small></h1>
+        <!--<h1 style="margin-top:0px; margin-bottom:0px;"><small><span>Clockify</span></small></h1>-->
 
         <table class="table table-borderless" style="margin-top:0px; margin-bottom:0px;">
 
